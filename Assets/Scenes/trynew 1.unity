@@ -134,8 +134,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6431179, y: 1.802263, z: 1.7015834}
-  m_Center: {x: -0.00000011920929, y: -0.28566897, z: 0.01461637}
+  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
+  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
 --- !u!1 &73765894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5267,8 +5267,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6163192, y: 1.6931205, z: 1.616319}
-  m_Center: {x: 0.058300495, y: -0.34656024, z: 0.008328795}
+  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
+  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
 --- !u!1 &428613900
 GameObject:
   m_ObjectHideFlags: 0
@@ -15925,8 +15925,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6431179, y: 1.802263, z: 1.7015834}
-  m_Center: {x: -0.00000011920929, y: -0.28566897, z: 0.01461637}
+  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
+  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
 --- !u!1001 &1454482175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16314,8 +16314,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6431179, y: 1.802263, z: 1.7015834}
-  m_Center: {x: -0.00000011920929, y: -0.28566897, z: 0.01461637}
+  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
+  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
 --- !u!1 &1919671767
 GameObject:
   m_ObjectHideFlags: 0
@@ -21540,6 +21540,7 @@ MonoBehaviour:
   armyPrefab: {fileID: 2940987313472619641, guid: c93d4fdd7eb15704f8c8ba56f933701d, type: 3}
   door: {fileID: 0}
   warriorsReady: 0
+  underAttack: 0
   currentArmy: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 7166484481429991640}
@@ -21684,6 +21685,7 @@ MonoBehaviour:
   armyPrefab: {fileID: 2940987313472619641, guid: c93d4fdd7eb15704f8c8ba56f933701d, type: 3}
   door: {fileID: 0}
   warriorsReady: 0
+  underAttack: 0
   currentArmy: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 7166484482766143398}
@@ -21768,6 +21770,7 @@ MonoBehaviour:
   armyPrefab: {fileID: 2940987313472619641, guid: c93d4fdd7eb15704f8c8ba56f933701d, type: 3}
   door: {fileID: 0}
   warriorsReady: 0
+  underAttack: 0
   currentArmy: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 7166484482882400229}
@@ -21914,6 +21917,7 @@ MonoBehaviour:
   armyPrefab: {fileID: 2940987313472619641, guid: c93d4fdd7eb15704f8c8ba56f933701d, type: 3}
   door: {fileID: 0}
   warriorsReady: 0
+  underAttack: 0
   currentArmy: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 824543910}

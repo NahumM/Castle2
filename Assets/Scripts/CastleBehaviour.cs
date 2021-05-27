@@ -11,7 +11,7 @@ public class CastleBehaviour : MonoBehaviour
     public Transform door;
 
     [HideInInspector] public int warriorsReady;
-    bool underAttack;
+    public bool underAttack;
 
     [HideInInspector] public Army currentArmy;
 
@@ -81,12 +81,10 @@ public class CastleBehaviour : MonoBehaviour
 
     IEnumerator WarriorsCounter(bool once)
     {
-        if (!once) yield return new WaitForSeconds(spawnRate - 0.1f);
-        HoleBlop();
-        yield return new WaitForSeconds(0.1f);
-        if (warriorsReady != 0)
+        if (!once) yield return new WaitForSeconds(spawnRate);
+        if (castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player)
         {
-            if (warriorsReady < maximumWarriors && !underAttack && !startCapturing)
+            if (warriorsReady < maximumWarriors && !underAttack)
             {
                 warriorsReady++;
             }
@@ -97,7 +95,7 @@ public class CastleBehaviour : MonoBehaviour
                 CreateArmyToAttack(positionOfCastle);
                 currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
             }
-            else currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
+            else if (currentArmy.warriors.Count != 0) currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
         }
        if (!once)
         StartCoroutine("WarriorsCounter", false);
@@ -160,6 +158,11 @@ public class CastleBehaviour : MonoBehaviour
         //zoneScaleValue = Zone.transform.localScale.x;
         ChangeCastleBelongs(castleBelong);
         startCapturing = true;
+        for (int i = 0; i < warsJumpedinHole; i++)
+        {
+            StartCoroutine("WarriorsCounter", true);
+        }
+        warsJumpedinHole = 0;
     }
 
     public void MoveArmyToAttack(List<Vector3> movePositions)
@@ -203,30 +206,30 @@ public class CastleBehaviour : MonoBehaviour
         }
         if (startCapturing)
         {
-           /* //zoneScaleValue = Mathf.MoveTowards(zoneScaleValue, zoneTarget, Time.deltaTime * 1);
-            zoneScaleValue = Mathf.Lerp(zoneScaleValue, zoneTarget, Time.deltaTime * 1);
+            /* //zoneScaleValue = Mathf.MoveTowards(zoneScaleValue, zoneTarget, Time.deltaTime * 1);
+             zoneScaleValue = Mathf.Lerp(zoneScaleValue, zoneTarget, Time.deltaTime * 1);
 
-            Zone.transform.localScale = new Vector3(zoneScaleValue, zoneScaleValue, zoneScaleValue);
+             Zone.transform.localScale = new Vector3(zoneScaleValue, zoneScaleValue, zoneScaleValue);
 
-            if (zoneScaleValue < 0.03f)
-            {
-                if (castleBelongs == Belongs.Player)
-                    Zone.GetComponent<Renderer>().material.color = blueZone;
-                if (castleBelongs == Belongs.Enemy)
-                    Zone.GetComponent<Renderer>().material.color = redZone;
-                for (int i = 0; i < warsJumpedinHole; i++)
-                {
-                    StartCoroutine("WarriorsCounter", true);
-                }
-                warsJumpedinHole = 0;
-                zoneTarget = 0.85f;
-            }
+             if (zoneScaleValue < 0.03f)
+             {
+                 if (castleBelongs == Belongs.Player)
+                     Zone.GetComponent<Renderer>().material.color = blueZone;
+                 if (castleBelongs == Belongs.Enemy)
+                     Zone.GetComponent<Renderer>().material.color = redZone;
+                 for (int i = 0; i < warsJumpedinHole; i++)
+                 {
+                     StartCoroutine("WarriorsCounter", true);
+                 }
+                 warsJumpedinHole = 0;
+                 zoneTarget = 0.85f;
+             }
 
-            if (zoneTarget == 0.85f && zoneScaleValue > 0.82f)
-            {
-                startCapturing = false;
-                zoneTarget = 0f;
-            } */
+             if (zoneTarget == 0.85f && zoneScaleValue > 0.82f)
+             {
+                 startCapturing = false;
+                 zoneTarget = 0f;
+             } */
 
         }
     }

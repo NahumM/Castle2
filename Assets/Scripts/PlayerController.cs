@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         {
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Castles")))
             {
                 if (hit.collider.CompareTag("PlayerCastle"))
                 {
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(currentLine, 5f);
                 var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Castles")))
                 {
                     if (hit.collider.CompareTag("EnemyCastle") || hit.collider.CompareTag("EmptyCastle"))
                     {

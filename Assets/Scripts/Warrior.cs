@@ -5,10 +5,12 @@ using UnityEngine.AI;
 
 public class Warrior : MonoBehaviour
 {
+
+    [SerializeField] ParticleSystem blood;
     //Stats
     public bool isEnemy;
     //
-    bool inDuel;
+    public bool inDuel;
     Warrior warToAttack;
     [HideInInspector] public Army army;
     Army armyToAttack;
@@ -103,12 +105,16 @@ public class Warrior : MonoBehaviour
     void FollowArmy()
     {
         if (agent.enabled == true && !goingInsideCastle && !attacking && !inDuel)
+        {
+            if (army == null) Destroy(this);
             agent.destination = army.gameObject.transform.position;
+        }
     }
 
     public void AttackCastle(CastleBehaviour castle)
     {
         castleToAttack = castle;
+        agent.enabled = true;
         agent.destination = castleToAttack.transform.position;
         attacking = true;
         // StartCoroutine("FightChecker", castle);
@@ -134,7 +140,12 @@ public class Warrior : MonoBehaviour
 
         if (inDuel)
         {
-            if (Vector3.Distance(transform.position, agent.destination) < 0.3f)
+            if (warToAttack == null)
+            {
+                inDuel = false;
+                return;
+            }
+            if (Vector3.Distance(transform.position, agent.destination) < 0.1f && warriorBelongs == CastleBehaviour.Belongs.Player)
             {
 
                 warToAttack.Death();
@@ -142,7 +153,7 @@ public class Warrior : MonoBehaviour
             }
         }
 
-        if (startJumping)
+        if (startJumping && !inDuel)
         {
             cTime += jumpSpeed * Time.deltaTime;
             Vector3 currentPos = Vector3.Lerp(startPos, endPos, cTime);
@@ -161,7 +172,7 @@ public class Warrior : MonoBehaviour
                     army.RemoveWarriorFromArmy(this);
                     castleToAttack.ChangeArmyValue(castleToAttack.warriorsReady + 1);
                     castleToAttack.warsJumpedinHole += 1;
-                    Destroy(this.gameObject);
+                    Destroy(this);
 
                 }
             }
@@ -170,6 +181,7 @@ public class Warrior : MonoBehaviour
 
     void Death()
     {
+        blood.Play();
         if (agent != null)
         agent.enabled = false;
         if (anim != null)
@@ -180,7 +192,7 @@ public class Warrior : MonoBehaviour
         if (army != null && this != null)
             army.RemoveWarriorFromArmy(this);
         gameObject.tag = "Untagged";
-        Destroy(this.gameObject, 1.5f);
+        Destroy(this, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -202,10 +214,15 @@ public class Warrior : MonoBehaviour
             {
                 castleToAttack.ChangeArmyValue(castleToAttack.warriorsReady + 1);
                 army.RemoveWarriorFromArmy(this);
-                Destroy(this.gameObject);
+                Destroy(this);
             }
         }
         if (other.gameObject.tag == "Spike") Death();
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(this.gameObject);
     }
 
 }
