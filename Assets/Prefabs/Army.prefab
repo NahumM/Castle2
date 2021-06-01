@@ -295,8 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemyArmy: 0
   inTheBattle: 0
-  warriorPrefab: {fileID: 4662568851142372687, guid: 899c23497366f98439b9817a827c3ef5, type: 3}
-  armySpeed: 2
+  warriorPrefab: {fileID: 4662568851142372687, guid: ef8d39068ec58b4488403bed0e1aa937, type: 3}
+  armySpeed: 1
   castleToAttack: {fileID: 0}
   attackingCastle: 0
   armyBelongs: 0

@@ -23,8 +23,6 @@ public class CastleBehaviour : MonoBehaviour
     [SerializeField] GameObject hole;
     float target = 1.2f;
     float holeScaleValue = 3.6f;
-    float zoneScaleValue;
-    float zoneTarget = 0f;
     public enum Belongs { Enemy, Player, Empty};
     public Belongs castleBelongs;
 
@@ -51,10 +49,6 @@ public class CastleBehaviour : MonoBehaviour
 
     }
 
-    void HoleBlop()
-    {
-        holeBloping = true;
-    }
     public void ChangeCastleBelongs(Belongs castleBelong)
     {
         switch (castleBelong)
@@ -82,22 +76,27 @@ public class CastleBehaviour : MonoBehaviour
     IEnumerator WarriorsCounter(bool once)
     {
         if (!once) yield return new WaitForSeconds(spawnRate);
-        if (castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player)
+        if ((castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player) && !underAttack)
         {
-            if (warriorsReady < maximumWarriors && !underAttack)
+            if (warriorsReady < maximumWarriors)
             {
                 warriorsReady++;
             }
             if (currentArmy == null)
             {
                 List<Vector3> positionOfCastle = new List<Vector3>();
-                positionOfCastle.Add(transform.position);
+                positionOfCastle.Add(transform.position + new Vector3(0, 0.06f, 0));
                 CreateArmyToAttack(positionOfCastle);
                 currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
             }
-            else if (currentArmy.warriors.Count != 0) currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
+            else if (currentArmy.warriors.Count != 0 && !underAttack)
+            {
+                currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
+            }
+            else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
         }
-       if (!once)
+        if (underAttack && currentArmy == null) underAttack = false;
+            if (!once)
         StartCoroutine("WarriorsCounter", false);
     }
 
@@ -123,7 +122,7 @@ public class CastleBehaviour : MonoBehaviour
                 }
             }
             List<Vector3> positionOfCastle = new List<Vector3>();
-            positionOfCastle.Add(closestCastlePosition);
+            positionOfCastle.Add(closestCastlePosition + new Vector3(0, 0.06f, 0));
             //CreateArmyToAttack(positionOfCastle);
             MoveArmyToAttack(positionOfCastle);
         }
@@ -178,7 +177,7 @@ public class CastleBehaviour : MonoBehaviour
     public void CreateArmyToAttack(List<Vector3> movePositions)
     {
         List<Vector3> movingPoints = new List<Vector3>(movePositions);
-        var army = Instantiate(armyPrefab, transform.position, Quaternion.identity);
+        var army = Instantiate(armyPrefab, transform.position + new Vector3(0, 0.06f, 0), Quaternion.identity);
         currentArmy = army.GetComponent<Army>();
         if (isEnemyCastle) currentArmy.isEnemyArmy = true;
         currentArmy.armyBelongs = castleBelongs;

@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
                     {
                         mouseClickPoint.x = hit.point.x;
                         mouseClickPoint.z = hit.point.z;
-                       // mouseClickPoint.y = 0.06f;
+                        mouseClickPoint.y = 0.06f;
                         movingPoints.Add(mouseClickPoint);
                         lineRenderer.positionCount++;
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
@@ -73,15 +73,16 @@ public class PlayerController : MonoBehaviour
         {
             if (drawing)
             {
-                Destroy(currentLine, 5f);
+                Destroy(currentLine, 4f);
                 var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Castles")))
                 {
                     if (hit.collider.CompareTag("EnemyCastle") || hit.collider.CompareTag("EmptyCastle"))
                     {
+                        if (!activeCastle.underAttack && activeCastle.currentArmy != null)
                         mouseClickPoint = hit.collider.transform.position;
-                        //mouseClickPoint.y = 0.03f;
+                        mouseClickPoint.y = 0.03f;
                         movingPoints.Add(mouseClickPoint);
                         lineRenderer.positionCount++;
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else Destroy(currentLine);
                 }
+                else Destroy(currentLine);
                 drawing = false;
                 activeCastle = null;
                 movingPoints.Clear();

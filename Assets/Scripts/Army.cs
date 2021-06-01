@@ -5,8 +5,10 @@ using UnityEngine.AI;
 
 public class Army : MonoBehaviour
 {
+
+    static int id;
     public bool isEnemyArmy;
-    [SerializeField] bool inTheBattle;
+    public bool inTheBattle;
     public GameObject warriorPrefab;
     public float armySpeed;
     Billboard billboard;
@@ -17,10 +19,10 @@ public class Army : MonoBehaviour
     public CastleBehaviour.Belongs armyBelongs;
     public List<Warrior> warriors = new List<Warrior>();
     [SerializeField] List<Vector3> movingPath;
-    [SerializeField] bool startMoving;
+    public bool startMoving;
     [SerializeField] int warriorsInArmy;
     public Army armyToAttack;
-    List<Army> armiesToAttack = new List<Army>();
+    public List<Army> armiesToAttack = new List<Army>();
 
 
     private void Awake()
@@ -30,6 +32,8 @@ public class Army : MonoBehaviour
 
     private void Start()
     {
+        gameObject.name = "Army(" + id + ")";
+        id++;
         if (isEnemyArmy) gameObject.tag = "EnemyArmy"; else gameObject.tag = "PlayerArmy";
     }
 
@@ -50,9 +54,10 @@ public class Army : MonoBehaviour
     public void AttackOtherArmy(Army army)
     {
             armyToAttack = army;
-            if (!armiesToAttack.Contains(army))
-                armiesToAttack.Add(army);
-            army.armyToAttack = this;
+        if (!armiesToAttack.Contains(army))
+            armiesToAttack.Add(army);
+        if (!army.armiesToAttack.Contains(this))
+            army.armiesToAttack.Add(this);
             inTheBattle = true;
             army.inTheBattle = true;
             List<Warrior> attackers = new List<Warrior>();
@@ -79,6 +84,14 @@ public class Army : MonoBehaviour
     public void MoveArmyToPath(List<Vector3> path)
     {
         movingPath = path;
+        foreach (Warrior war in warriors)
+        {
+            var lookPos = movingPath[0] - transform.position;
+            lookPos.y = 0.06f;
+            Quaternion rotation = Quaternion.LookRotation(lookPos);
+            
+            war.gameObject.transform.rotation = rotation;
+        }
         startMoving = true;
 
     }
@@ -88,6 +101,8 @@ public class Army : MonoBehaviour
         attackingCastle = true;
         foreach (Warrior war in warriors)
         {
+            war.castleToAttack = castleToAttack;
+            war.goingInsideCastle = true;
             war.StartJump(false, castle.jumpPosition.position);
         }
     }
@@ -96,6 +111,7 @@ public class Army : MonoBehaviour
     {
         warriors.Remove(war);
         warriorsInArmy--;
+        if (warriorsInArmy < 0) Debug.Log("Warriors In Army - " + warriorsInArmy + " name: " + gameObject.name);
         if (warriorsInArmy < 1)
         {
             if (inTheBattle)
@@ -104,7 +120,6 @@ public class Army : MonoBehaviour
                 {
                     arm.WontheBattle(this);
                 }
-                armyToAttack.WontheBattle(this);
             }
             if (attackingCastle)
             {
@@ -112,7 +127,8 @@ public class Army : MonoBehaviour
                 if (castleToAttack.currentArmy == null)
                     castleToAttack.currentArmy = this;
             }
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
         billboard.SetValue(warriorsInArmy);
     }
@@ -128,16 +144,26 @@ public class Army : MonoBehaviour
 
     void FollowThePath()
     {
-        if (inTheBattle && armyToAttack == null) WontheBattle(null);
         if (startMoving && movingPath.Count > 0 && !inTheBattle && !attackingCastle)
         {
             transform.position = Vector3.MoveTowards(transform.position, movingPath[0], Time.deltaTime * armySpeed);
             if (Vector3.Distance(transform.position, movingPath[0]) < 0.1f)
             {
                 movingPath.RemoveAt(0);
+                if (movingPath.Count > 0)
+                {
+                    foreach (Warrior war in warriors)
+                    {
+                        var lookPos = movingPath[0] - transform.position;
+                        lookPos.y = 0.06f;
+                        Quaternion rotation = Quaternion.LookRotation(lookPos);
+
+                        war.gameObject.transform.rotation = rotation;
+                    }
+                }
             }
         }
-        //else startMoving = false;
+        else startMoving = false;
     }
     void Update()
     {
@@ -157,22 +183,37 @@ public class Army : MonoBehaviour
             if (other.CompareTag("EnemyCastle") || other.CompareTag("EmptyCastle"))
             {
                     castleToAttack = other.GetComponent<CastleBehaviour>();
+                if (!castleToAttack.underAttack && castleToAttack.currentArmy == null)
+                {
                     castleToAttack.AttackCastle();
-                    WarriorsToAttack(castleToAttack);
+                    JumpToCastle(castleToAttack);
+                }
+                if (!castleToAttack.underAttack && castleToAttack.currentArmy != null)
+                {
+                    castleToAttack.AttackCastle();
+                    AttackOtherArmy(castleToAttack.currentArmy);
+                }
             }
         }
         if (isEnemyArmy && !inTheBattle)
         {
             if (other.CompareTag("PlayerCastle") || other.CompareTag("EmptyCastle"))
             {
-
-                    castleToAttack = other.GetComponent<CastleBehaviour>();
+                castleToAttack = other.GetComponent<CastleBehaviour>();
+                if (castleToAttack.currentArmy == null)
+                {
                     castleToAttack.AttackCastle();
-                    WarriorsToAttack(castleToAttack);
+                    JumpToCastle(castleToAttack);
+                }
+                if (!castleToAttack.underAttack && castleToAttack.currentArmy != null)
+                {
+                    castleToAttack.AttackCastle();
+                    castleToAttack.currentArmy.AttackOtherArmy(this);
+                }
             }
             if (other.CompareTag("EnemyCastle"))
             {
-                other.GetComponent<CastleBehaviour>().TakeWarrioursFromCastle(this);
+                
             }
         }
 
@@ -183,31 +224,79 @@ public class Army : MonoBehaviour
                 if (!other.GetComponent<Army>().inTheBattle)
                     AttackOtherArmy(other.GetComponent<Army>());
             }
+            if (other.CompareTag("PlayerArmy"))
+            {
+                var alyArmy = other.GetComponent<Army>();
+                if (!alyArmy.inTheBattle && !alyArmy.startMoving && !alyArmy.attackingCastle)
+                {
+                    foreach (Warrior war in alyArmy.warriors)
+                    {
+                        AddWarriorsToArmy(1, war.transform.position);
+                        Destroy(war.gameObject);
+                    }
+                    Destroy(alyArmy.gameObject);
+                }
+            }
+        }
+
+        if (isEnemyArmy)
+        {
+            if (other.CompareTag("EnemyArmy"))
+            {
+                var alyArmy = other.GetComponent<Army>();
+                if (!alyArmy.inTheBattle && !alyArmy.startMoving && !alyArmy.attackingCastle)
+                {
+                    foreach (Warrior war in alyArmy.warriors)
+                    {
+                        AddWarriorsToArmy(1, war.transform.position);
+                        Destroy(war.gameObject);
+                    }
+                    Destroy(alyArmy.gameObject);
+                }
+            }
         }
     }
 
     public void WontheBattle(Army army)
     {
-        if (armiesToAttack.Count <= 1)
+        if (warriorsInArmy > 0)
         {
-            inTheBattle = false;
-            foreach (Warrior war in warriors)
+            if (armiesToAttack.Count <= 1)
             {
-                war.attacking = false;
-                war.agent.enabled = true;
+                inTheBattle = false;
+
+                foreach (Warrior war in warriors)
+                {
+                    war.attacking = false;
+                    //  war.agent.enabled = true;
+                }
+                if (castleToAttack != null)
+                    WarriorsToAttack(castleToAttack);
+                //armiesToAttack.Clear();
+                StartCoroutine("WinningDelay");
             }
-            if (castleToAttack != null)
-                WarriorsToAttack(castleToAttack);
-        }
-        else
-        {
-            armiesToAttack.Remove(army);
-            AttackOtherArmy(armiesToAttack[0]);
-        }
+            else
+            {
+                armiesToAttack.Remove(army);
+                if (armiesToAttack[0] != null)
+                    AttackOtherArmy(armiesToAttack[0]);
+            }
+        } 
     }
 
-    private void OnDestroy()
+    IEnumerator WinningDelay()
     {
-        Destroy(this.gameObject);
+        yield return new WaitForSeconds(1f);
+        foreach (Warrior war in warriors)
+        {
+            if (!war.dying)
+                war.anim.SetBool("isWinning", true);
+        }
+        yield return new WaitForSeconds(1f);
+        foreach (Warrior war in warriors)
+        {
+            war.anim.SetBool("isWinning", false);
+        }
+        startMoving = true;
     }
 }
