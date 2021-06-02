@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,10 +12,12 @@ public class Army : MonoBehaviour
     public GameObject warriorPrefab;
     public float armySpeed;
     Billboard billboard;
+    public int startArmyAmount;
 
     [Header("Debug Stats:")]
     [SerializeField] CastleBehaviour castleToAttack;
     [SerializeField] bool attackingCastle;
+    public CastleBehaviour mainCastle;
     public CastleBehaviour.Belongs armyBelongs;
     public List<Warrior> warriors = new List<Warrior>();
     [SerializeField] List<Vector3> movingPath;
@@ -34,7 +36,24 @@ public class Army : MonoBehaviour
     {
         gameObject.name = "Army(" + id + ")";
         id++;
-        if (isEnemyArmy) gameObject.tag = "EnemyArmy"; else gameObject.tag = "PlayerArmy";
+        CheckBelongs();
+    }
+
+    void CheckBelongs()
+    {
+        switch (armyBelongs)
+        {
+            case CastleBehaviour.Belongs.Enemy:
+                gameObject.tag = "EnemyArmy";
+                break;
+            case CastleBehaviour.Belongs.Player:
+                gameObject.tag = "PlayerArmy";
+                break;
+            case CastleBehaviour.Belongs.Empty:
+                gameObject.tag = "EmptyArmy";
+                AddWarriorsToArmy(startArmyAmount, transform.position);
+                break;
+        }
     }
 
     public void AddWarriorsToArmy(int amount, Vector3 jumpPoint)
@@ -43,7 +62,7 @@ public class Army : MonoBehaviour
         {
             var warrior = Instantiate(warriorPrefab, jumpPoint, Quaternion.identity);
             Warrior war = warrior.GetComponent<Warrior>();
-            if (isEnemyArmy) war.isEnemy = true;
+            war.warriorBelongs = armyBelongs;
             war.army = this;
             warriors.Add(war);
             warriorsInArmy++;
@@ -54,9 +73,9 @@ public class Army : MonoBehaviour
     public void AttackOtherArmy(Army army)
     {
             armyToAttack = army;
-        if (!armiesToAttack.Contains(army))
+            if (!armiesToAttack.Contains(army))
             armiesToAttack.Add(army);
-        if (!army.armiesToAttack.Contains(this))
+            if (!army.armiesToAttack.Contains(this))
             army.armiesToAttack.Add(this);
             inTheBattle = true;
             army.inTheBattle = true;
@@ -111,7 +130,6 @@ public class Army : MonoBehaviour
     {
         warriors.Remove(war);
         warriorsInArmy--;
-        if (warriorsInArmy < 0) Debug.Log("Warriors In Army - " + warriorsInArmy + " name: " + gameObject.name);
         if (warriorsInArmy < 1)
         {
             if (inTheBattle)
@@ -174,7 +192,7 @@ public class Army : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isEnemyArmy && !inTheBattle)
+        if (armyBelongs == CastleBehaviour.Belongs.Player && !inTheBattle)
         {
             if (other.CompareTag("PlayerCastle"))
             {
@@ -195,7 +213,7 @@ public class Army : MonoBehaviour
                 }
             }
         }
-        if (isEnemyArmy && !inTheBattle)
+        if (armyBelongs == CastleBehaviour.Belongs.Enemy && !inTheBattle)
         {
             if (other.CompareTag("PlayerCastle") || other.CompareTag("EmptyCastle"))
             {
@@ -217,14 +235,14 @@ public class Army : MonoBehaviour
             }
         }
 
-        if (!isEnemyArmy)
+        if (armyBelongs == CastleBehaviour.Belongs.Player)
         {
             if (other.CompareTag("EnemyArmy"))
             {
                 if (!other.GetComponent<Army>().inTheBattle)
                     AttackOtherArmy(other.GetComponent<Army>());
             }
-            if (other.CompareTag("PlayerArmy"))
+            if (other.CompareTag("PlayerArmy") || other.CompareTag("EmptyArmy"))
             {
                 var alyArmy = other.GetComponent<Army>();
                 if (!alyArmy.inTheBattle && !alyArmy.startMoving && !alyArmy.attackingCastle)
@@ -239,9 +257,9 @@ public class Army : MonoBehaviour
             }
         }
 
-        if (isEnemyArmy)
+        if (armyBelongs == CastleBehaviour.Belongs.Enemy)
         {
-            if (other.CompareTag("EnemyArmy"))
+            if (other.CompareTag("EnemyArmy") || other.CompareTag("EmptyArmy"))
             {
                 var alyArmy = other.GetComponent<Army>();
                 if (!alyArmy.inTheBattle && !alyArmy.startMoving && !alyArmy.attackingCastle)
@@ -259,6 +277,7 @@ public class Army : MonoBehaviour
 
     public void WontheBattle(Army army)
     {
+        ClearListFromEmpty(armiesToAttack);
         if (warriorsInArmy > 0)
         {
             if (armiesToAttack.Count <= 1)
@@ -272,7 +291,11 @@ public class Army : MonoBehaviour
                 }
                 if (castleToAttack != null)
                     WarriorsToAttack(castleToAttack);
-                //armiesToAttack.Clear();
+                if (mainCastle != null)
+                {
+                    if (mainCastle.currentArmy == this)
+                        mainCastle.underAttack = false;
+                }
                 StartCoroutine("WinningDelay");
             }
             else
@@ -282,6 +305,15 @@ public class Army : MonoBehaviour
                     AttackOtherArmy(armiesToAttack[0]);
             }
         } 
+    }
+
+    void ClearListFromEmpty(List<Army> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] == null)
+                list.RemoveAt(i);
+        }
     }
 
     IEnumerator WinningDelay()

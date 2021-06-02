@@ -77,20 +77,23 @@ public class Warrior : MonoBehaviour
 
     public void CheckBelongs()
     {
-        if (isEnemy)
+        switch (warriorBelongs)
         {
-            warriorBelongs = CastleBehaviour.Belongs.Enemy;
-            render.material.color = Color.red;
-            warriorZone.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.3f);
-            gameObject.tag = "EnemyWarrior";
-        }
-        else
-        {
-            warriorBelongs = CastleBehaviour.Belongs.Player;
-            render.material.color = blueColor;
-            warriorZone.GetComponent<SpriteRenderer>().color = new Color(0.1830188f, 0.5300552f, 1f, 0.3f);
-
-            gameObject.tag = "PlayerWarrior";
+            case CastleBehaviour.Belongs.Enemy:
+                render.material.color = Color.red;
+                warriorZone.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.3f);
+                gameObject.tag = "EnemyWarrior";
+                break;
+            case CastleBehaviour.Belongs.Player:
+                render.material.color = blueColor;
+                warriorZone.GetComponent<SpriteRenderer>().color = new Color(0.1830188f, 0.5300552f, 1f, 0.3f);
+                gameObject.tag = "PlayerWarrior";
+                break;
+            case CastleBehaviour.Belongs.Empty:
+                render.material.color = Color.gray;
+                warriorZone.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+                gameObject.tag = "PlayerWarrior";
+                break;
         }
     }
 

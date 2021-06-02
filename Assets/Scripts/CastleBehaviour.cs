@@ -8,12 +8,13 @@ public class CastleBehaviour : MonoBehaviour
     GameObject Zone;
     [SerializeField] GameObject torus;
     [SerializeField] GameObject armyPrefab;
+    [HideInInspector] public LevelManager levelManager;
     public Transform door;
 
     [HideInInspector] public int warriorsReady;
     public bool underAttack;
 
-    [HideInInspector] public Army currentArmy;
+    public Army currentArmy;
 
 
     [HideInInspector] public int warsJumpedinHole;
@@ -56,19 +57,22 @@ public class CastleBehaviour : MonoBehaviour
             case Belongs.Enemy:
                 this.gameObject.tag = "EnemyCastle";
                 torus.GetComponent<Renderer>().material = redMat;
-               // Zone.GetComponent<Renderer>().material.color = redZone;
+                this.castleBelongs = castleBelong;
                 isEnemyCastle = true;
                 break;
             case Belongs.Player:
                 this.gameObject.tag = "PlayerCastle";
                 torus.GetComponent<Renderer>().material = blueMat;
                 //Zone.GetComponent<Renderer>().material.color = blueZone;
+                this.castleBelongs = castleBelong;
                 isEnemyCastle = false;
                 break;
             case Belongs.Empty:
                 this.gameObject.tag = "EmptyCastle";
+                this.castleBelongs = castleBelong;
                 break;
         }
+        levelManager.CastleCapture();
         castleBelongs = castleBelong;
         underAttack = false;
     }
@@ -95,7 +99,11 @@ public class CastleBehaviour : MonoBehaviour
             }
             else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
         }
-        if (underAttack && currentArmy == null) underAttack = false;
+        if (currentArmy == null && underAttack)
+        {
+            yield return new WaitForSeconds(2f);
+            underAttack = false;
+        }
             if (!once)
         StartCoroutine("WarriorsCounter", false);
     }
@@ -170,6 +178,7 @@ public class CastleBehaviour : MonoBehaviour
         if (currentArmy != null)
         {
             currentArmy.MoveArmyToPath(movingPoints);
+            currentArmy.mainCastle = null;
             currentArmy = null;
         }
     }
@@ -179,8 +188,8 @@ public class CastleBehaviour : MonoBehaviour
         List<Vector3> movingPoints = new List<Vector3>(movePositions);
         var army = Instantiate(armyPrefab, transform.position + new Vector3(0, 0.06f, 0), Quaternion.identity);
         currentArmy = army.GetComponent<Army>();
-        if (isEnemyCastle) currentArmy.isEnemyArmy = true;
         currentArmy.armyBelongs = castleBelongs;
+        currentArmy.mainCastle = this;
         ChangeArmyValue(warriorsReady / 2);
         //currentArmy.AddWarriorsToArmy(warriorsReady);
         currentArmy.MoveArmyToPath(movingPoints);
