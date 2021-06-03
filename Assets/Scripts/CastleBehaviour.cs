@@ -33,7 +33,7 @@ public class CastleBehaviour : MonoBehaviour
     [Header("Castle Stats:")]
     [HideInInspector] public bool isEnemyCastle;
     [SerializeField] int startWarriors;
-    [SerializeField] int spawnRate;
+    [SerializeField] float spawnRate;
     [SerializeField] int maximumWarriors;
     [SerializeField] int attackRate;
     
@@ -42,12 +42,18 @@ public class CastleBehaviour : MonoBehaviour
     {
         Zone = transform.GetChild(1).gameObject;
         warriorsReady = startWarriors;
+        if (startWarriors > 1)
+        {
+            for (int i = 0; i <= startWarriors; i++)
+            {
+                StartCoroutine("WarriorsCounter", true);
+            }
+        }
         StartCoroutine("WarriorsCounter", false);
         StartCoroutine("EnemyAttackRate");
         if (startWarriors > 0)
             CaptureCastle(castleBelongs);
         else ChangeCastleBelongs(castleBelongs);
-
     }
 
     public void ChangeCastleBelongs(Belongs castleBelong)
@@ -104,8 +110,10 @@ public class CastleBehaviour : MonoBehaviour
             yield return new WaitForSeconds(2f);
             underAttack = false;
         }
-            if (!once)
-        StartCoroutine("WarriorsCounter", false);
+        if (!once)
+        {
+            StartCoroutine("WarriorsCounter", false);
+        }
     }
 
     IEnumerator EnemyAttackRate()
@@ -186,11 +194,11 @@ public class CastleBehaviour : MonoBehaviour
     public void CreateArmyToAttack(List<Vector3> movePositions)
     {
         List<Vector3> movingPoints = new List<Vector3>(movePositions);
-        var army = Instantiate(armyPrefab, transform.position + new Vector3(0, 0.06f, 0), Quaternion.identity);
+        var army = Instantiate(armyPrefab, transform.position + new Vector3(0, 0.06f, 0), Quaternion.identity, transform.parent);
         currentArmy = army.GetComponent<Army>();
         currentArmy.armyBelongs = castleBelongs;
         currentArmy.mainCastle = this;
-        ChangeArmyValue(warriorsReady / 2);
+        ChangeArmyValue(1);
         //currentArmy.AddWarriorsToArmy(warriorsReady);
         currentArmy.MoveArmyToPath(movingPoints);
     }

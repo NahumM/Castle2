@@ -109,6 +109,10 @@ public class Warrior : MonoBehaviour
         warToAttack = war;
         attacking = true;
         inDuel = true;
+        var lookPos = position - transform.position;
+        lookPos.y = 0.06f;
+        Quaternion rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = rotation;
         destanation = position;
     }
 

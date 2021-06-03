@@ -7,11 +7,15 @@ public class LevelManager : MonoBehaviour
 {
     List<CastleBehaviour> allCastles = new List<CastleBehaviour>();
     int castlesInLevel;
+    int currentLevelID;
+    GameObject currentLevel;
+    [SerializeField] List<GameObject> levels = new List<GameObject>();
+
     private void Start()
     {
-        AccureAllCastles();
+        currentLevelID = PlayerPrefs.GetInt("Level");
+        StartCoroutine("RestartDelay", false);
     }
-
     public void CastleCapture()
     {
         CastleBehaviour.Belongs castleBelongs = CastleBehaviour.Belongs.Empty;
@@ -24,7 +28,6 @@ public class LevelManager : MonoBehaviour
             {
                 if (castleBelongs != allCastles[i].castleBelongs)
                 {
-                    Debug.Log("Castle not!");
                     return;
                 }
             }
@@ -40,10 +43,21 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    IEnumerator RestartDelay()
+    IEnumerator RestartDelay(bool delay)
+    {
+        if (delay) yield return new WaitForSeconds(1f);
+        Destroy(currentLevel);
+        currentLevel = Instantiate(levels[currentLevelID]);
+        AccureAllCastles();
+    }
+
+    IEnumerator LoadDelay()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(0);
+        Destroy(currentLevel);
+        if (levels.Count - 1 > currentLevelID) currentLevelID++;
+        currentLevel = Instantiate(levels[currentLevelID]);
+        AccureAllCastles();
     }
 
     void AccureAllCastles()
@@ -58,12 +72,27 @@ public class LevelManager : MonoBehaviour
     void LevelWin()
     {
         Debug.Log("You won the level!");
-        StartCoroutine("RestartDelay");
+        StartCoroutine("LoadDelay");
     }
 
     void LevelLost()
     {
         Debug.Log("You lost the level!");
-        StartCoroutine("RestartDelay");
+        StartCoroutine("RestartDelay", true);
+    }
+
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("Level", currentLevelID);
+        PlayerPrefs.Save();
+    }
+
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            PlayerPrefs.SetInt("Level", currentLevelID);
+            PlayerPrefs.Save();
+        }
     }
 }

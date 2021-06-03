@@ -60,7 +60,7 @@ public class Army : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            var warrior = Instantiate(warriorPrefab, jumpPoint, Quaternion.identity);
+            var warrior = Instantiate(warriorPrefab, jumpPoint, Quaternion.identity, transform.parent);
             Warrior war = warrior.GetComponent<Warrior>();
             war.warriorBelongs = armyBelongs;
             war.army = this;
