@@ -7,17 +7,19 @@ public class LevelManager : MonoBehaviour
 {
     List<CastleBehaviour> allCastles = new List<CastleBehaviour>();
     int castlesInLevel;
-    int currentLevelID;
+    [SerializeField] int currentLevelID;
     GameObject currentLevel;
     [SerializeField] List<GameObject> levels = new List<GameObject>();
 
     private void Start()
     {
         currentLevelID = PlayerPrefs.GetInt("Level");
+        if (currentLevelID < 0) currentLevelID = 0;
         StartCoroutine("RestartDelay", false);
     }
     public void CastleCapture()
     {
+        StopAllCoroutines();
         CastleBehaviour.Belongs castleBelongs = CastleBehaviour.Belongs.Empty;
         for (int i = 0; i < allCastles.Count; i++)
         {
@@ -32,6 +34,7 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+
         if (castleBelongs == CastleBehaviour.Belongs.Enemy)
         {
             LevelLost();
@@ -45,7 +48,18 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator RestartDelay(bool delay)
     {
-        if (delay) yield return new WaitForSeconds(1f);
+        if (delay)
+        {
+            yield return new WaitForSeconds(1f);
+            GameObject[] allyArmies = GameObject.FindGameObjectsWithTag("PlayerArmy");
+            if (allyArmies.Length > 0)
+            {
+                Debug.Log("Armies not null");
+                StartCoroutine("RestartDelay", true);
+                yield break;
+            }
+        }
+
         Destroy(currentLevel);
         currentLevel = Instantiate(levels[currentLevelID]);
         AccureAllCastles();
@@ -54,6 +68,12 @@ public class LevelManager : MonoBehaviour
     IEnumerator LoadDelay()
     {
         yield return new WaitForSeconds(1f);
+        GameObject[] enemyArmies = GameObject.FindGameObjectsWithTag("EnemyArmy");
+        if (enemyArmies.Length > 0)
+        {
+            StartCoroutine("LoadDelay");
+            yield return null;
+        }
         Destroy(currentLevel);
         if (levels.Count - 1 > currentLevelID) currentLevelID++;
         currentLevel = Instantiate(levels[currentLevelID]);
@@ -71,13 +91,11 @@ public class LevelManager : MonoBehaviour
     }
     void LevelWin()
     {
-        Debug.Log("You won the level!");
         StartCoroutine("LoadDelay");
     }
 
     void LevelLost()
     {
-        Debug.Log("You lost the level!");
         StartCoroutine("RestartDelay", true);
     }
 

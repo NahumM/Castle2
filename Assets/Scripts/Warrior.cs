@@ -188,11 +188,10 @@ public class Warrior : MonoBehaviour
         if (anim != null)
         {
             anim.SetBool("isAttacking", true);
-            anim.SetBool("isDead", true);
         }
         army.RemoveWarriorFromArmy(this);
         gameObject.tag = "Untagged";
-        Destroy(this.gameObject, 1.5f);
+        Destroy(this.gameObject, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)

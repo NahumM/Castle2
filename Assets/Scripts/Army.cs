@@ -319,16 +319,6 @@ public class Army : MonoBehaviour
     IEnumerator WinningDelay()
     {
         yield return new WaitForSeconds(1f);
-        foreach (Warrior war in warriors)
-        {
-            if (!war.dying)
-                war.anim.SetBool("isWinning", true);
-        }
-        yield return new WaitForSeconds(1f);
-        foreach (Warrior war in warriors)
-        {
-            war.anim.SetBool("isWinning", false);
-        }
         startMoving = true;
     }
 }
