@@ -34,6 +34,8 @@ public class Warrior : MonoBehaviour
     Vector3 startPos;
     Vector3 endPos;
     Vector3 preset;
+    public bool jump = true;
+    public Vector3 positionToJump;
     public float trajectoryHeight = 5;
     public float jumpSpeed;
     bool startJumping;
@@ -48,31 +50,53 @@ public class Warrior : MonoBehaviour
         anim = GetComponent<Animator>();
         render = transform.GetChild(1).GetComponent<Renderer>();
         CheckBelongs();
-        StartJump(true, Vector3.zero);
+        StartJump(true, positionToJump, jump);
     }
 
-    public void StartJump(bool fromCastle, Vector3 positionToJump)
+    public void StartJump(bool fromCastle, Vector3 positionToJump, bool jump)
     {
-        if (!inDuel)
+            if (!inDuel && jump)
+            {
+                // agent.enabled = false;
+                anim.SetBool("isJumping", true);
+                startPos = transform.position;
+                if (fromCastle)
+                {
+                    Vector3 randomPoint = RandomPoint(transform.position);
+                    endPos = new Vector3(randomPoint.x, 0.06f, randomPoint.z);
+                    preset = new Vector3(endPos.x - transform.position.x, 0, endPos.z - transform.position.z);
+                }
+                else
+                {
+                    goingInsideCastle = true;
+                    endPos = positionToJump;
+                    jumpToCastle = true;
+                }
+                Vector3 posToLook = new Vector3(endPos.x, transform.position.y, endPos.z);
+                transform.LookAt(posToLook);
+                startJumping = true;
+            }
+        if (!jump)
         {
-           // agent.enabled = false;
-            startPos = transform.position;
-            if (fromCastle)
-            {
-                Vector3 randomPoint = transform.position + Random.onUnitSphere * 0.2f;
-                endPos = new Vector3(randomPoint.x, 0.06f, randomPoint.z);
-                preset = new Vector3(endPos.x - transform.position.x, 0, endPos.z - transform.position.z);
-            }
-            else
-            {
-                goingInsideCastle = true;
-                endPos = positionToJump;
-                jumpToCastle = true;
-            }
-            Vector3 posToLook = new Vector3(endPos.x, transform.position.y, endPos.z);
-            transform.LookAt(posToLook);
-            startJumping = true;
+            Vector3 randomPoint = RandomPoint(transform.position);
+            endPos = new Vector3(transform.position.x, 0.06f, transform.position.y);
+            preset = new Vector3(randomPoint.x - transform.position.x, 0, randomPoint.z - transform.position.z);
+            jump = true;
         }
+    }
+
+    Vector3 RandomPoint(Vector3 point)
+    {
+        Vector3 randomP = Vector3.zero;
+        for (bool pad = false; !pad;)
+        {
+            randomP = point + Random.onUnitSphere * 0.3f;
+            randomP = new Vector3(randomP.x, 0.06f, randomP.z);
+            Collider[] nearWars = Physics.OverlapSphere(randomP, 0.05f, LayerMask.GetMask("Warriors"));
+            if (nearWars.Length < 1) pad = true;
+            else Debug.Log(nearWars.Length + " and name: " + gameObject.name);
+        }
+        return randomP;
     }
 
     public void CheckBelongs()
@@ -141,7 +165,7 @@ public class Warrior : MonoBehaviour
             else anim.SetBool("isRunning", false);
 
 
-        if (!inDuel && !dying)
+        if (!inDuel && !dying && !startJumping)
            destanation = army.transform.position + preset;
         transform.position = Vector3.MoveTowards(transform.position, destanation, Time.deltaTime * MoveTowardsSpeed);
         if (inDuel && !dying)
@@ -178,6 +202,7 @@ public class Warrior : MonoBehaviour
                     Destroy(this.gameObject);
 
                 }
+                anim.SetBool("isJumping", false);
             }
         }
     }

@@ -16,6 +16,8 @@ public class CastleBehaviour : MonoBehaviour
 
     public Army currentArmy;
 
+    public GameObject currentLine;
+
 
     [HideInInspector] public int warsJumpedinHole;
     bool startCapturing;
@@ -78,6 +80,8 @@ public class CastleBehaviour : MonoBehaviour
                 this.castleBelongs = castleBelong;
                 break;
         }
+        if (currentLine != null)
+            Destroy(currentLine);
         levelManager.CastleCapture();
         castleBelongs = castleBelong;
         underAttack = false;
@@ -94,14 +98,11 @@ public class CastleBehaviour : MonoBehaviour
             }
             if (currentArmy == null)
             {
-                List<Vector3> positionOfCastle = new List<Vector3>();
-                positionOfCastle.Add(transform.position + new Vector3(0, 0.06f, 0));
-                CreateArmyToAttack(positionOfCastle);
-                currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
+                CreateArmy();
             }
             else if (currentArmy.warriors.Count != 0 && !underAttack)
             {
-                currentArmy.AddWarriorsToArmy(1, jumpPosition.position);
+                currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
             }
             else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
         }
@@ -114,6 +115,14 @@ public class CastleBehaviour : MonoBehaviour
         {
             StartCoroutine("WarriorsCounter", false);
         }
+    }
+
+    void CreateArmy()
+    {
+        List<Vector3> positionOfCastle = new List<Vector3>();
+        positionOfCastle.Add(transform.position + new Vector3(0, 0.06f, 0));
+        CreateArmyToAttack(positionOfCastle);
+        currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
     }
 
     IEnumerator EnemyAttackRate()
@@ -140,7 +149,7 @@ public class CastleBehaviour : MonoBehaviour
             List<Vector3> positionOfCastle = new List<Vector3>();
             positionOfCastle.Add(closestCastlePosition + new Vector3(0, 0.06f, 0));
             //CreateArmyToAttack(positionOfCastle);
-            MoveArmyToAttack(positionOfCastle);
+            MoveArmyToAttack(positionOfCastle, false);
         }
         StartCoroutine("EnemyAttackRate");
     }
@@ -180,11 +189,12 @@ public class CastleBehaviour : MonoBehaviour
         warsJumpedinHole = 0;
     }
 
-    public void MoveArmyToAttack(List<Vector3> movePositions)
+    public void MoveArmyToAttack(List<Vector3> movePositions, bool toAllyCastle)
     {
         List<Vector3> movingPoints = new List<Vector3>(movePositions);
         if (currentArmy != null)
         {
+            if (toAllyCastle) currentArmy.goingToAllies = true;
             currentArmy.MoveArmyToPath(movingPoints);
             currentArmy.mainCastle = null;
             currentArmy = null;
@@ -219,34 +229,6 @@ public class CastleBehaviour : MonoBehaviour
                 holeBloping = false;
                 target = 1.2f;
             }
-        }
-        if (startCapturing)
-        {
-            /* //zoneScaleValue = Mathf.MoveTowards(zoneScaleValue, zoneTarget, Time.deltaTime * 1);
-             zoneScaleValue = Mathf.Lerp(zoneScaleValue, zoneTarget, Time.deltaTime * 1);
-
-             Zone.transform.localScale = new Vector3(zoneScaleValue, zoneScaleValue, zoneScaleValue);
-
-             if (zoneScaleValue < 0.03f)
-             {
-                 if (castleBelongs == Belongs.Player)
-                     Zone.GetComponent<Renderer>().material.color = blueZone;
-                 if (castleBelongs == Belongs.Enemy)
-                     Zone.GetComponent<Renderer>().material.color = redZone;
-                 for (int i = 0; i < warsJumpedinHole; i++)
-                 {
-                     StartCoroutine("WarriorsCounter", true);
-                 }
-                 warsJumpedinHole = 0;
-                 zoneTarget = 0.85f;
-             }
-
-             if (zoneTarget == 0.85f && zoneScaleValue > 0.82f)
-             {
-                 startCapturing = false;
-                 zoneTarget = 0f;
-             } */
-
         }
     }
 }

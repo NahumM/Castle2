@@ -13,6 +13,11 @@ public class Army : MonoBehaviour
     public float armySpeed;
     Billboard billboard;
     public int startArmyAmount;
+    public bool goingToAllies;
+
+    int counter;
+
+    List<Vector3> positionsOfSpawn;
 
     [Header("Debug Stats:")]
     [SerializeField] CastleBehaviour castleToAttack;
@@ -30,6 +35,7 @@ public class Army : MonoBehaviour
     private void Awake()
     {
         billboard = transform.GetChild(0).GetComponent<Billboard>();
+        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
     }
 
     private void Start()
@@ -51,12 +57,12 @@ public class Army : MonoBehaviour
                 break;
             case CastleBehaviour.Belongs.Empty:
                 gameObject.tag = "EmptyArmy";
-                AddWarriorsToArmy(startArmyAmount, transform.position);
+                AddWarriorsToArmy(startArmyAmount, transform.position, true);
                 break;
         }
     }
 
-    public void AddWarriorsToArmy(int amount, Vector3 jumpPoint)
+    public void AddWarriorsToArmy(int amount, Vector3 jumpPoint, bool jump)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -64,6 +70,9 @@ public class Army : MonoBehaviour
             Warrior war = warrior.GetComponent<Warrior>();
             war.warriorBelongs = armyBelongs;
             war.army = this;
+            if (!jump) war.jump = false;
+            war.positionToJump = positionsOfSpawn[counter];
+            counter++;
             warriors.Add(war);
             warriorsInArmy++;
             billboard.SetValue(warriorsInArmy);
@@ -122,7 +131,7 @@ public class Army : MonoBehaviour
         {
             war.castleToAttack = castleToAttack;
             war.goingInsideCastle = true;
-            war.StartJump(false, castle.jumpPosition.position);
+            war.StartJump(false, castle.jumpPosition.position, true);
         }
     }
 
@@ -249,9 +258,12 @@ public class Army : MonoBehaviour
                 {
                     foreach (Warrior war in alyArmy.warriors)
                     {
-                        AddWarriorsToArmy(1, war.transform.position);
+                        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+                        AddWarriorsToArmy(1, war.transform.position, false);
                         Destroy(war.gameObject);
                     }
+                    if (goingToAllies)
+                     alyArmy.mainCastle.currentArmy = this;
                     Destroy(alyArmy.gameObject);
                 }
             }
@@ -266,7 +278,8 @@ public class Army : MonoBehaviour
                 {
                     foreach (Warrior war in alyArmy.warriors)
                     {
-                        AddWarriorsToArmy(1, war.transform.position);
+                        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+                        AddWarriorsToArmy(1, war.transform.position, true);
                         Destroy(war.gameObject);
                     }
                     Destroy(alyArmy.gameObject);
@@ -314,6 +327,24 @@ public class Army : MonoBehaviour
             if (list[i] == null)
                 list.RemoveAt(i);
         }
+    }
+
+    List<Vector3> GetCirclePositionsOfWarriors(Vector3 centerPosition, float distance, int positionCount)
+    {
+        List<Vector3> positionList = new List<Vector3>();
+        for (int i = 0; i < positionCount; i++)
+        {
+            float angle = i * (360f / positionCount);
+            Vector3 dir = ApplyRotationToVector(new Vector3(1, 0), angle);
+            Vector3 position = centerPosition + dir * distance;
+            positionList.Add(position);
+        }
+        return positionList;
+    }
+
+    Vector3 ApplyRotationToVector(Vector3 vector, float angle)
+    {
+        return Quaternion.Euler(0, 0, angle) * vector;
     }
 
     IEnumerator WinningDelay()

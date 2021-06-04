@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
                 {
                     activeCastle = hit.collider.GetComponent<CastleBehaviour>();
                         currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+                    activeCastle.currentLine = currentLine;
                         lineRenderer = currentLine.GetComponent<LineRenderer>();
                     mouseClickPoint = hit.collider.transform.position;
                         //mouseClickPoint.x = hit.point.x;
@@ -73,12 +74,12 @@ public class PlayerController : MonoBehaviour
         {
             if (drawing)
             {
-                Destroy(currentLine, 4f);
+                Destroy(currentLine, movingPoints.Count * 0.3f);
                 var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Castles")))
                 {
-                    if (hit.collider.CompareTag("EnemyCastle") || hit.collider.CompareTag("EmptyCastle"))
+                    if (hit.collider.CompareTag("EnemyCastle") || hit.collider.CompareTag("EmptyCastle") || hit.collider.CompareTag("PlayerCastle"))
                     {
                         if (!activeCastle.underAttack && activeCastle.currentArmy != null)
                         mouseClickPoint = hit.collider.transform.position;
@@ -86,10 +87,13 @@ public class PlayerController : MonoBehaviour
                         movingPoints.Add(mouseClickPoint);
                         lineRenderer.positionCount++;
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
-                        activeCastle.MoveArmyToAttack(movingPoints);
+                        if (!hit.collider.CompareTag("PlayerCastle"))
+                        activeCastle.MoveArmyToAttack(movingPoints, false);
+                        else activeCastle.MoveArmyToAttack(movingPoints, true);
                         currentLine = null;
                     }
                     else Destroy(currentLine);
+
                 }
                 else Destroy(currentLine);
                 drawing = false;
