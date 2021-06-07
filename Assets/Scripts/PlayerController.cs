@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public bool isGameEnded;
     Camera mainCamera;
     public List<Vector3> movingPoints = new List<Vector3>();
     Vector3 mouseClickPoint;
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isGameEnded)
         {
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

@@ -10,12 +10,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int currentLevelID;
     GameObject currentLevel;
     [SerializeField] List<GameObject> levels = new List<GameObject>();
+    [SerializeField] UIManager ui;
 
     private void Start()
     {
         currentLevelID = PlayerPrefs.GetInt("Level");
         if (currentLevelID < 0) currentLevelID = 0;
-        StartCoroutine("RestartDelay", false);
+        LoadLevel();
     }
     public void CastleCapture()
     {
@@ -37,19 +38,17 @@ public class LevelManager : MonoBehaviour
 
         if (castleBelongs == CastleBehaviour.Belongs.Enemy)
         {
-            LevelLost();
+            StartCoroutine("RestartDelay");
         }
         if (castleBelongs == CastleBehaviour.Belongs.Player)
         {
-            LevelWin();
+            StartCoroutine("LoadDelay");
         }
     }
 
 
-    IEnumerator RestartDelay(bool delay)
+    IEnumerator RestartDelay()
     {
-        if (delay)
-        {
             yield return new WaitForSeconds(1f);
             GameObject[] allyArmies = GameObject.FindGameObjectsWithTag("PlayerArmy");
             if (allyArmies.Length > 0)
@@ -58,11 +57,26 @@ public class LevelManager : MonoBehaviour
                 StartCoroutine("RestartDelay", true);
                 yield break;
             }
-        }
+        ui.ShowRestartButtonUI(true);
+        GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
+    }
 
+    public void RestartLevel()
+    {
         Destroy(currentLevel);
         currentLevel = Instantiate(levels[currentLevelID]);
         AccureAllCastles();
+        ui.ShowRestartButtonUI(false);
+    }
+
+    public void LoadLevel()
+    {
+        Destroy(currentLevel);
+        if (levels.Count - 1 > currentLevelID) currentLevelID++;
+        else currentLevelID = 0;
+        currentLevel = Instantiate(levels[currentLevelID]);
+        AccureAllCastles();
+        ui.ShowWinButtonUI(false);
     }
 
     IEnumerator LoadDelay()
@@ -72,12 +86,10 @@ public class LevelManager : MonoBehaviour
         if (enemyArmies.Length > 0)
         {
             StartCoroutine("LoadDelay");
-            yield return null;
+            yield break;
         }
-        Destroy(currentLevel);
-        if (levels.Count - 1 > currentLevelID) currentLevelID++;
-        currentLevel = Instantiate(levels[currentLevelID]);
-        AccureAllCastles();
+        ui.ShowWinButtonUI(true);
+        GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
 
     void AccureAllCastles()
@@ -88,15 +100,6 @@ public class LevelManager : MonoBehaviour
             castle.levelManager = this;
         }
         castlesInLevel = allCastles.Count;
-    }
-    void LevelWin()
-    {
-        StartCoroutine("LoadDelay");
-    }
-
-    void LevelLost()
-    {
-        StartCoroutine("RestartDelay", true);
     }
 
     void OnApplicationQuit()

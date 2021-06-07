@@ -95,7 +95,6 @@ public class Warrior : MonoBehaviour
             Collider[] nearWars = Physics.OverlapSphere(randomP, 0.03f, LayerMask.GetMask("Warriors"));
             if (nearWars.Length < 1) pad = true;
             if (i > 30) pad = true;
-            else Debug.Log(nearWars.Length + " and name: " + gameObject.name);
         }
         return randomP;
     }
