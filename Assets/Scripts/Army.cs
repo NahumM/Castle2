@@ -148,8 +148,11 @@ public class Army : MonoBehaviour
                     arm.WontheBattle(this);
                 }
             }
-            if (mainCastle.currentArmy == this)
-                mainCastle.warriorsReady--;
+            if (mainCastle != null)
+            {
+                if (mainCastle.currentArmy == this)
+                    mainCastle.warriorsReady--;
+            }
             if (attackingCastle)
             {
                 castleToAttack.CaptureCastle(armyBelongs);

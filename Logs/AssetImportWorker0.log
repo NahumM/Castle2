@@ -419,3 +419,68 @@ System memory in use after: 93.1 MB.
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 1740.
 Total: 3.554800 ms (FindLiveObjects: 0.162600 ms CreateObjectMapping: 0.042300 ms MarkObjects: 1.212300 ms  DeleteObjects: 2.136100 ms)
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001014 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.829 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1201 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 97.3 MB.
+System memory in use after: 93.1 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 1742.
+Total: 3.692000 ms (FindLiveObjects: 0.169700 ms CreateObjectMapping: 0.049200 ms MarkObjects: 1.297000 ms  DeleteObjects: 2.174800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1014.608714 seconds.
+  path: Assets/Scripts/Warrior.cs
+  artifactKey: Guid(23b11a119a554ce43ab0621bd0327e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Warrior.cs using Guid(23b11a119a554ce43ab0621bd0327e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d7b00d36ea1e1a6dc00d3f975cef9b0') in 0.004318 seconds
+  Import took 0.007981 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.030248 seconds.
+  path: Assets/Scripts/Warrior.cs
+  artifactKey: Guid(23b11a119a554ce43ab0621bd0327e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Warrior.cs using Guid(23b11a119a554ce43ab0621bd0327e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d7b00d36ea1e1a6dc00d3f975cef9b0') in 0.002921 seconds
+  Import took 0.005294 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001037 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.833 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1201 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 97.3 MB.
+System memory in use after: 93.1 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 1744.
+Total: 3.966400 ms (FindLiveObjects: 0.289100 ms CreateObjectMapping: 0.070100 ms MarkObjects: 1.294800 ms  DeleteObjects: 2.311200 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
