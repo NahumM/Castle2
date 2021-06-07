@@ -206,6 +206,21 @@ public class Army : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if (other.CompareTag("Spike"))
+        {
+            for (int i = 0; i < warriors.Count; i++)
+            {
+                if (i / 2 == 0)
+                {
+                    warriors[i].Death();
+                }
+            }
+        }
+        if (other.CompareTag("Tent"))
+        {
+            AddWarriorsToArmy(warriors.Count, transform.position, false);
+        }
         if (armyBelongs == CastleBehaviour.Belongs.Player && !inTheBattle)
         {
             if (other.CompareTag("PlayerCastle"))

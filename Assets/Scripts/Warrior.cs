@@ -207,7 +207,7 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    void Death()
+    public void Death()
     {
         blood.Play();
         if (anim != null)

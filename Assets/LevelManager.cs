@@ -58,11 +58,13 @@ public class LevelManager : MonoBehaviour
                 yield break;
             }
         ui.ShowRestartButtonUI(true);
+        StopAllCastles();
         GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
 
     public void RestartLevel()
     {
+        allCastles.Clear();
         Destroy(currentLevel);
         currentLevel = Instantiate(levels[currentLevelID]);
         AccureAllCastles();
@@ -71,8 +73,12 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        Destroy(currentLevel);
-        if (levels.Count - 1 > currentLevelID) currentLevelID++;
+        allCastles.Clear();
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel);
+            if (levels.Count - 1 > currentLevelID) currentLevelID++;
+        }
         else currentLevelID = 0;
         currentLevel = Instantiate(levels[currentLevelID]);
         AccureAllCastles();
@@ -89,6 +95,7 @@ public class LevelManager : MonoBehaviour
             yield break;
         }
         ui.ShowWinButtonUI(true);
+        StopAllCastles();
         GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
 
@@ -100,6 +107,14 @@ public class LevelManager : MonoBehaviour
             castle.levelManager = this;
         }
         castlesInLevel = allCastles.Count;
+    }
+
+    void StopAllCastles()
+    {
+        foreach (CastleBehaviour castle in allCastles)
+        {
+            castle.GameOver();
+        }
     }
 
     void OnApplicationQuit()

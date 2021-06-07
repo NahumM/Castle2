@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     bool drawing;
 
     CastleBehaviour activeCastle;
+    CastleBehaviour castleToAttack;
 
 
     void Start()
@@ -58,6 +59,13 @@ public class PlayerController : MonoBehaviour
             layerMask = ~layerMask;
             if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Floor")))
             {
+                if (hit.collider.CompareTag("Forest"))
+                {
+                    drawing = false;
+                    movingPoints.Clear();
+                    Destroy(currentLine);
+                    return;
+                }
                 if (drawing)
                 {
                     if (Vector3.Distance(hit.point, mouseClickPoint) > 0.2f)
@@ -84,15 +92,19 @@ public class PlayerController : MonoBehaviour
                     if (hit.collider.CompareTag("EnemyCastle") || hit.collider.CompareTag("EmptyCastle") || hit.collider.CompareTag("PlayerCastle"))
                     {
                         if (!activeCastle.underAttack && activeCastle.currentArmy != null)
-                        mouseClickPoint = hit.collider.transform.position;
-                        mouseClickPoint.y = 0.03f;
-                        movingPoints.Add(mouseClickPoint);
-                        lineRenderer.positionCount++;
-                        lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
-                        if (!hit.collider.CompareTag("PlayerCastle"))
-                        activeCastle.MoveArmyToAttack(movingPoints, false);
-                        else activeCastle.MoveArmyToAttack(movingPoints, true);
-                        currentLine = null;
+                        {
+                            castleToAttack = hit.collider.GetComponent<CastleBehaviour>();
+                            castleToAttack.currentLine = currentLine;
+                            mouseClickPoint = hit.collider.transform.position;
+                            mouseClickPoint.y = 0.03f;
+                            movingPoints.Add(mouseClickPoint);
+                            lineRenderer.positionCount++;
+                            lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                            if (!hit.collider.CompareTag("PlayerCastle"))
+                                activeCastle.MoveArmyToAttack(movingPoints, false);
+                            else activeCastle.MoveArmyToAttack(movingPoints, true);
+                            currentLine = null;
+                        }
                     }
                     else Destroy(currentLine);
 

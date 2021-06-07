@@ -296,15 +296,19 @@ MonoBehaviour:
   isEnemyArmy: 0
   inTheBattle: 0
   warriorPrefab: {fileID: 4662568851142372687, guid: ef8d39068ec58b4488403bed0e1aa937, type: 3}
-  armySpeed: 1
+  armySpeed: 1.5
+  startArmyAmount: 0
+  goingToAllies: 0
   castleToAttack: {fileID: 0}
   attackingCastle: 0
+  mainCastle: {fileID: 0}
   armyBelongs: 0
   warriors: []
   movingPath: []
   startMoving: 0
   warriorsInArmy: 0
   armyToAttack: {fileID: 0}
+  armiesToAttack: []
 --- !u!65 &6674866378479788870
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -196,8 +196,14 @@ MonoBehaviour:
   - {fileID: 8738122252397828840, guid: 91e563464031fc844b3cf037fc677b39, type: 3}
   - {fileID: 3557349209505383789, guid: 2bb4dc31eb0dd78478ba76c8380c9c1b, type: 3}
   - {fileID: 4932197737839707763, guid: d0bda8933dd209c47bfce70714fc2fe8, type: 3}
-  - {fileID: 4054071179828142381, guid: 53b15b4842bd6b04585e8c392e35f6c2, type: 3}
   - {fileID: 264332384630736140, guid: 2091d5f352717fc44b0e46dbf406b8b9, type: 3}
+  - {fileID: 4054071179828142381, guid: 53b15b4842bd6b04585e8c392e35f6c2, type: 3}
+  - {fileID: 8549285526942151652, guid: 81cf9fa7a6b8b604f9f3e5017646e612, type: 3}
+  - {fileID: 8787245493584846678, guid: b727507b5eff56a48814bf7b0f47550a, type: 3}
+  - {fileID: 2835109857868876227, guid: be2ab7f399d5a46458d6b5e87be70ebf, type: 3}
+  - {fileID: 8479510747076860978, guid: da755800518b6294d8ed8758d0b6d4c8, type: 3}
+  - {fileID: 7173291485264583198, guid: 9b491b8f6753981408ffd38098aa2b32, type: 3}
+  - {fileID: 1857631962506982830, guid: 2f66c5da47919a14299311d31640b1be, type: 3}
   ui: {fileID: 126442542779696509}
 --- !u!4 &2132122800
 Transform:
@@ -1268,8 +1274,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 126442542779696509}
-        m_TargetAssemblyTypeName: BtnHandler, Assembly-CSharp
-        m_MethodName: NextButton
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PressWinButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1336,7 +1342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &6686561523606961806
 MonoBehaviour:
   m_ObjectHideFlags: 0

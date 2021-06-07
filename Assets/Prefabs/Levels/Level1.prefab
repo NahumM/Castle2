@@ -106,6 +106,7 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 5452942683844022864}
   hole: {fileID: 5452942683630111984}
@@ -113,10 +114,10 @@ MonoBehaviour:
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
   isEnemyCastle: 1
-  startWarriors: 2
+  startWarriors: 1
   spawnRate: 4
   maximumWarriors: 10
-  attackRate: 5
+  attackRate: 999
 --- !u!65 &2943324253509484065
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -267,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b4293bc871af84ebb5f2ceeac8c4fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameEnded: 0
   movingPoints: []
   linePrefab: {fileID: 4158119746575736248, guid: fbe7723a92e50d347ad29295f42775ac, type: 3}
 --- !u!1 &2943324251839326035
@@ -11793,6 +11795,7 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 2943324251839326032}
   hole: {fileID: 2943324252699163120}
@@ -11800,9 +11803,9 @@ MonoBehaviour:
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
   isEnemyCastle: 0
-  startWarriors: 5
+  startWarriors: 1
   spawnRate: 2
-  maximumWarriors: 10
+  maximumWarriors: 20
   attackRate: 5
 --- !u!65 &2943324252462513860
 BoxCollider:

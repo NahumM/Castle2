@@ -6,12 +6,14 @@ public class CastleBehaviour : MonoBehaviour
 {
 
     GameObject Zone;
+    public bool gameOver;
     [SerializeField] GameObject torus;
     [SerializeField] GameObject armyPrefab;
     [HideInInspector] public LevelManager levelManager;
+    [SerializeField] List<GameObject> enemyPathways = new List<GameObject>();
     public Transform door;
 
-    [HideInInspector] public int warriorsReady;
+    public int warriorsReady;
     public bool underAttack;
 
     public Army currentArmy;
@@ -87,32 +89,40 @@ public class CastleBehaviour : MonoBehaviour
         underAttack = false;
     }
 
+
     IEnumerator WarriorsCounter(bool once)
     {
-        if (!once) yield return new WaitForSeconds(spawnRate);
-        if ((castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player) && !underAttack)
+        if (!gameOver)
         {
-            if (warriorsReady < maximumWarriors)
+            if (!once) yield return new WaitForSeconds(spawnRate);
+            if ((castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player) && !underAttack)
             {
-                warriorsReady++;
-                if (currentArmy == null)
+
+                if (warriorsReady < maximumWarriors)
                 {
-                    CreateArmy();
+                    if (currentArmy == null)
+                    {
+                        warriorsReady = 0;
+                        CreateArmy();
+                    }
+                    else if (currentArmy.warriors.Count != 0 && !underAttack)
+                    {
+                        currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
+                    }
+                    else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
+
+                    warriorsReady++;
                 }
-                else if (currentArmy.warriors.Count != 0 && !underAttack)
-                {
-                    currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
-                }
-                else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
             }
-        }
-        if (currentArmy == null && underAttack)
-        {
-            underAttack = false;
-        }
-        if (!once)
-        {
-            StartCoroutine("WarriorsCounter", false);
+            if (currentArmy == null && underAttack)
+            {
+                underAttack = false;
+                warriorsReady = 0;
+            }
+            if (!once)
+            {
+                StartCoroutine("WarriorsCounter", false);
+            }
         }
     }
 
@@ -126,31 +136,42 @@ public class CastleBehaviour : MonoBehaviour
 
     IEnumerator EnemyAttackRate()
     {
-        yield return new WaitForSeconds(attackRate);
-        if (castleBelongs == Belongs.Enemy)
+        if (!gameOver)
         {
-            GameObject[] oppositeCastles = GameObject.FindGameObjectsWithTag("PlayerCastle");
-            GameObject[] emptyCastles = GameObject.FindGameObjectsWithTag("EmptyCastle");
-            List<GameObject> allCastles = new List<GameObject>();
-            allCastles.AddRange(oppositeCastles);
-            allCastles.AddRange(emptyCastles);
-            Vector3 closestCastlePosition = Vector3.zero;
-            float distanceToCastle = 999f;
-            if (oppositeCastles.Length <= 0) yield break;
-            foreach (GameObject castle in allCastles)
+            yield return new WaitForSeconds(attackRate);
+            if (castleBelongs == Belongs.Enemy)
             {
-                if (Vector3.Distance(transform.position, castle.transform.position) < distanceToCastle)
+                Vector3 closestCastlePosition = Vector3.zero;
+                List<Vector3> positionOfCastle = new List<Vector3>();
+                if (enemyPathways.Count < 1)
                 {
-                    distanceToCastle = Vector3.Distance(transform.position, castle.transform.position);
-                    closestCastlePosition = castle.transform.position;
+                    GameObject[] oppositeCastles = GameObject.FindGameObjectsWithTag("PlayerCastle");
+                    GameObject[] emptyCastles = GameObject.FindGameObjectsWithTag("EmptyCastle");
+                    List<GameObject> allCastles = new List<GameObject>();
+                    allCastles.AddRange(oppositeCastles);
+                    allCastles.AddRange(emptyCastles);
+                    float distanceToCastle = 999f;
+                    if (oppositeCastles.Length <= 0) yield break;
+                    foreach (GameObject castle in allCastles)
+                    {
+                        if (Vector3.Distance(transform.position, castle.transform.position) < distanceToCastle)
+                        {
+                            distanceToCastle = Vector3.Distance(transform.position, castle.transform.position);
+                            closestCastlePosition = castle.transform.position;
+                        }
+                    }
+                    positionOfCastle.Add(closestCastlePosition + new Vector3(0, 0.06f, 0));
+                } else
+                {
+                    foreach (Transform child in enemyPathways[Random.Range(0, enemyPathways.Count)].transform)
+                    {
+                        positionOfCastle.Add(child.position);
+                    }
                 }
+                MoveArmyToAttack(positionOfCastle, false);
             }
-            List<Vector3> positionOfCastle = new List<Vector3>();
-            positionOfCastle.Add(closestCastlePosition + new Vector3(0, 0.06f, 0));
-            //CreateArmyToAttack(positionOfCastle);
-            MoveArmyToAttack(positionOfCastle, false);
+            StartCoroutine("EnemyAttackRate");
         }
-        StartCoroutine("EnemyAttackRate");
     }
 
     public void ChangeArmyValue(int value)
@@ -162,6 +183,12 @@ public class CastleBehaviour : MonoBehaviour
         {
             warriorsReady = maximumWarriors;
         }
+    }
+
+    public void GameOver()
+    {
+        gameOver = true;
+        StopAllCoroutines();
     }
 
     public void TakeWarrioursFromCastle(Army army)
@@ -197,6 +224,7 @@ public class CastleBehaviour : MonoBehaviour
             currentArmy.MoveArmyToPath(movingPoints);
             currentArmy.mainCastle = null;
             currentArmy = null;
+            warriorsReady = 0;
         }
     }
 
