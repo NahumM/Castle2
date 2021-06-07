@@ -148,6 +148,8 @@ public class Army : MonoBehaviour
                     arm.WontheBattle(this);
                 }
             }
+            if (mainCastle.currentArmy == this)
+                mainCastle.warriorsReady--;
             if (attackingCastle)
             {
                 castleToAttack.CaptureCastle(armyBelongs);
@@ -349,7 +351,7 @@ public class Army : MonoBehaviour
 
     IEnumerator WinningDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         startMoving = true;
     }
 }

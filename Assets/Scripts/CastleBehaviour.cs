@@ -95,20 +95,19 @@ public class CastleBehaviour : MonoBehaviour
             if (warriorsReady < maximumWarriors)
             {
                 warriorsReady++;
+                if (currentArmy == null)
+                {
+                    CreateArmy();
+                }
+                else if (currentArmy.warriors.Count != 0 && !underAttack)
+                {
+                    currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
+                }
+                else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
             }
-            if (currentArmy == null)
-            {
-                CreateArmy();
-            }
-            else if (currentArmy.warriors.Count != 0 && !underAttack)
-            {
-                currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
-            }
-            else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
         }
         if (currentArmy == null && underAttack)
         {
-            yield return new WaitForSeconds(2f);
             underAttack = false;
         }
         if (!once)

@@ -57,8 +57,8 @@ public class Warrior : MonoBehaviour
     {
             if (!inDuel && jump)
             {
-                // agent.enabled = false;
-                anim.SetBool("isJumping", true);
+            // agent.enabled = false;
+            anim.SetInteger("isJumpy", anim.GetInteger("isJumpy") + 1);
                 startPos = transform.position;
                 if (fromCastle)
                 {
@@ -81,19 +81,20 @@ public class Warrior : MonoBehaviour
             Vector3 randomPoint = RandomPoint(transform.position);
             endPos = new Vector3(transform.position.x, 0.06f, transform.position.y);
             preset = new Vector3(randomPoint.x - transform.position.x, 0, randomPoint.z - transform.position.z);
-            jump = true;
         }
     }
 
     Vector3 RandomPoint(Vector3 point)
     {
+        int i = 0;
         Vector3 randomP = Vector3.zero;
-        for (bool pad = false; !pad;)
+        for (bool pad = false; !pad; i++)
         {
             randomP = point + Random.onUnitSphere * 0.3f;
             randomP = new Vector3(randomP.x, 0.06f, randomP.z);
-            Collider[] nearWars = Physics.OverlapSphere(randomP, 0.05f, LayerMask.GetMask("Warriors"));
+            Collider[] nearWars = Physics.OverlapSphere(randomP, 0.03f, LayerMask.GetMask("Warriors"));
             if (nearWars.Length < 1) pad = true;
+            if (i > 30) pad = true;
             else Debug.Log(nearWars.Length + " and name: " + gameObject.name);
         }
         return randomP;
@@ -202,7 +203,7 @@ public class Warrior : MonoBehaviour
                     Destroy(this.gameObject);
 
                 }
-                anim.SetBool("isJumping", false);
+                anim.SetInteger("isJumpy", anim.GetInteger("isJumpy") + 1);
             }
         }
     }
