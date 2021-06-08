@@ -84,7 +84,8 @@ public class CastleBehaviour : MonoBehaviour
         }
         if (currentLine != null)
             Destroy(currentLine);
-        levelManager.CastleCapture();
+        if (levelManager != null)
+            levelManager.CastleCapture();
         castleBelongs = castleBelong;
         underAttack = false;
     }
@@ -116,7 +117,7 @@ public class CastleBehaviour : MonoBehaviour
             }
             if (currentArmy == null && underAttack)
             {
-                underAttack = false;
+                //underAttack = false;
                 warriorsReady = 0;
             }
             if (!once)

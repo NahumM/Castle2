@@ -35,7 +35,7 @@ public class Army : MonoBehaviour
     private void Awake()
     {
         billboard = transform.GetChild(0).GetComponent<Billboard>();
-        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+        CreateNewPositionOfSpawn();
     }
 
     private void Start()
@@ -43,6 +43,11 @@ public class Army : MonoBehaviour
         gameObject.name = "Army(" + id + ")";
         id++;
         CheckBelongs();
+    }
+
+    void CreateNewPositionOfSpawn()
+    {
+        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
     }
 
     void CheckBelongs()
@@ -71,6 +76,11 @@ public class Army : MonoBehaviour
             war.warriorBelongs = armyBelongs;
             war.army = this;
             if (!jump) war.jump = false;
+            if (positionsOfSpawn.Count <= counter)
+            {
+                positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+                counter = 0;
+            }
             war.positionToJump = positionsOfSpawn[counter];
             counter++;
             warriors.Add(war);
@@ -139,6 +149,11 @@ public class Army : MonoBehaviour
     {
         warriors.Remove(war);
         warriorsInArmy--;
+        if (mainCastle != null)
+        {
+            if (mainCastle.currentArmy == this)
+                mainCastle.warriorsReady--;
+        }
         if (warriorsInArmy < 1)
         {
             if (inTheBattle)
@@ -147,11 +162,6 @@ public class Army : MonoBehaviour
                 {
                     arm.WontheBattle(this);
                 }
-            }
-            if (mainCastle != null)
-            {
-                if (mainCastle.currentArmy == this)
-                    mainCastle.warriorsReady--;
             }
             if (attackingCastle)
             {

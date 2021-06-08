@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,9 +21,45 @@ public class PlayerController : MonoBehaviour
     CastleBehaviour castleToAttack;
 
 
+    bool isTrainingPassed;
+    [SerializeField] bool tutorial;
+    [SerializeField] GameObject hand;
+    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] List<string> tutorialTextes = new List<string>();
+    Animator anim;
+
+
     void Start()
     {
         mainCamera = GetComponent<Camera>();
+        if (tutorial && !isTrainingPassed)
+        {
+            anim = hand.GetComponent<Animator>();
+            StartCoroutine("TutorialStart");
+        }
+    }
+
+    IEnumerator TutorialStart()
+    {
+        yield return new WaitForSeconds(1f);
+        text.text = tutorialTextes[0];
+        hand.SetActive(true);
+        text.gameObject.SetActive(true);
+    }
+
+    void TutorialPoint(int i)
+    {
+        if (i == 2)
+        {
+            hand.SetActive(false);
+            text.gameObject.SetActive(false);
+            tutorial = false;
+            return;
+        }
+        text.text = tutorialTextes[i];
+        hand.SetActive(true);
+        text.gameObject.SetActive(true);
+        anim.SetInteger("TutorialStep", i);
     }
 
     // Update is called once per frame
@@ -36,8 +73,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (hit.collider.CompareTag("PlayerCastle"))
                 {
+                    if (tutorial) TutorialPoint(1);
                     activeCastle = hit.collider.GetComponent<CastleBehaviour>();
-                        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+                        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity, transform.parent);
                     activeCastle.currentLine = currentLine;
                         lineRenderer = currentLine.GetComponent<LineRenderer>();
                     mouseClickPoint = hit.collider.transform.position;
@@ -100,16 +138,25 @@ public class PlayerController : MonoBehaviour
                             movingPoints.Add(mouseClickPoint);
                             lineRenderer.positionCount++;
                             lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                            if (tutorial) TutorialPoint(2);
                             if (!hit.collider.CompareTag("PlayerCastle"))
                                 activeCastle.MoveArmyToAttack(movingPoints, false);
                             else activeCastle.MoveArmyToAttack(movingPoints, true);
                             currentLine = null;
                         }
                     }
-                    else Destroy(currentLine);
+                    else
+                    {
+                        if (tutorial) TutorialPoint(0);
+                        Destroy(currentLine);
+                    }
 
                 }
-                else Destroy(currentLine);
+                else
+                {
+                    if (tutorial) TutorialPoint(0);
+                    Destroy(currentLine);
+                }
                 drawing = false;
                 activeCastle = null;
                 movingPoints.Clear();

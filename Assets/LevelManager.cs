@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    List<CastleBehaviour> allCastles = new List<CastleBehaviour>();
+    [SerializeField] List<CastleBehaviour> allCastles = new List<CastleBehaviour>();
     int castlesInLevel;
     [SerializeField] int currentLevelID;
     GameObject currentLevel;
@@ -57,23 +57,21 @@ public class LevelManager : MonoBehaviour
                 StartCoroutine("RestartDelay", true);
                 yield break;
             }
-        ui.ShowRestartButtonUI(true);
         StopAllCastles();
+        ui.ShowRestartButtonUI(true);
         GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
 
     public void RestartLevel()
     {
-        allCastles.Clear();
         Destroy(currentLevel);
         currentLevel = Instantiate(levels[currentLevelID]);
-        AccureAllCastles();
+        StartCoroutine("AccureAllCastles");
         ui.ShowRestartButtonUI(false);
     }
 
     public void LoadLevel()
     {
-        allCastles.Clear();
         if (currentLevel != null)
         {
             Destroy(currentLevel);
@@ -81,7 +79,7 @@ public class LevelManager : MonoBehaviour
         }
         else currentLevelID = 0;
         currentLevel = Instantiate(levels[currentLevelID]);
-        AccureAllCastles();
+        StartCoroutine("AccureAllCastles");
         ui.ShowWinButtonUI(false);
     }
 
@@ -99,8 +97,10 @@ public class LevelManager : MonoBehaviour
         GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
 
-    void AccureAllCastles()
+    IEnumerator AccureAllCastles()
     {
+        allCastles.Clear();
+        yield return new WaitForEndOfFrame();
         allCastles.AddRange(GameObject.FindObjectsOfType<CastleBehaviour>());
         foreach (CastleBehaviour castle in allCastles)
         {
@@ -114,6 +114,15 @@ public class LevelManager : MonoBehaviour
         foreach (CastleBehaviour castle in allCastles)
         {
             castle.GameOver();
+        }
+    }
+
+    void ListClearFromEmpty(List<CastleBehaviour> list)
+    {
+        foreach (CastleBehaviour ob in list)
+        {
+            if (ob == null)
+                list.Remove(ob);
         }
     }
 
