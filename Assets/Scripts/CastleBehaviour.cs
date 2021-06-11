@@ -28,6 +28,7 @@ public class CastleBehaviour : MonoBehaviour
     [SerializeField] GameObject hole;
     float target = 1.2f;
     float holeScaleValue = 3.6f;
+    public float circleDistanceOfSpawn = 0.3f;
     public enum Belongs { Enemy, Player, Empty};
     public Belongs castleBelongs;
 
@@ -46,9 +47,9 @@ public class CastleBehaviour : MonoBehaviour
     {
         Zone = transform.GetChild(1).gameObject;
         warriorsReady = startWarriors;
-        if (startWarriors > 1)
+        if (startWarriors > 0)
         {
-            for (int i = 0; i <= startWarriors; i++)
+            for (int i = 0; i < startWarriors; i++)
             {
                 StartCoroutine("WarriorsCounter", true);
             }
@@ -58,6 +59,11 @@ public class CastleBehaviour : MonoBehaviour
         if (startWarriors > 0)
             CaptureCastle(castleBelongs);
         else ChangeCastleBelongs(castleBelongs);
+    }
+
+    public void CurrentLine(GameObject line)
+    {
+        currentLine = line;
     }
 
     public void ChangeCastleBelongs(Belongs castleBelong)
@@ -82,11 +88,11 @@ public class CastleBehaviour : MonoBehaviour
                 this.castleBelongs = castleBelong;
                 break;
         }
-        if (currentLine != null)
-            Destroy(currentLine);
         if (levelManager != null)
             levelManager.CastleCapture();
         castleBelongs = castleBelong;
+        if (currentLine != null && castleBelong == Belongs.Player)
+            Destroy(currentLine);
         underAttack = false;
     }
 
@@ -98,8 +104,8 @@ public class CastleBehaviour : MonoBehaviour
             if (!once) yield return new WaitForSeconds(spawnRate);
             if ((castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player) && !underAttack)
             {
-
-                if (warriorsReady < maximumWarriors)
+                if (currentArmy == null || !once) warriorsReady = 0;
+                    if (warriorsReady <= maximumWarriors || once)
                 {
                     if (currentArmy == null)
                     {
@@ -111,7 +117,6 @@ public class CastleBehaviour : MonoBehaviour
                         currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
                     }
                     else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
-
                     warriorsReady++;
                 }
             }
@@ -236,6 +241,9 @@ public class CastleBehaviour : MonoBehaviour
         currentArmy = army.GetComponent<Army>();
         currentArmy.armyBelongs = castleBelongs;
         currentArmy.mainCastle = this;
+        currentArmy.circleDistance = circleDistanceOfSpawn;
+        if (currentLine != null)
+            currentArmy.CurrentLine(currentLine);
         ChangeArmyValue(1);
         //currentArmy.AddWarriorsToArmy(warriorsReady);
         currentArmy.MoveArmyToPath(movingPoints);

@@ -108,7 +108,6 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
-  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 6292210026827825680}
   hole: {fileID: 6292210027553447088}
@@ -12966,12 +12965,11 @@ MonoBehaviour:
   armyPrefab: {fileID: 2940987313472619641, guid: c93d4fdd7eb15704f8c8ba56f933701d, type: 3}
   levelManager: {fileID: 0}
   enemyPathways:
-  - {fileID: 0}
+  - {fileID: 6933889173888353316}
   door: {fileID: 0}
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
-  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 3757721744329357072}
   hole: {fileID: 3757721743981226416}
@@ -12980,9 +12978,9 @@ MonoBehaviour:
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
   isEnemyCastle: 1
   startWarriors: 1
-  spawnRate: 3
+  spawnRate: 2
   maximumWarriors: 10
-  attackRate: 15
+  attackRate: 10
 --- !u!65 &6292210028378905441
 BoxCollider:
   m_ObjectHideFlags: 0

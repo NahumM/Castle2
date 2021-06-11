@@ -14,6 +14,7 @@ public class Army : MonoBehaviour
     Billboard billboard;
     public int startArmyAmount;
     public bool goingToAllies;
+    public float circleDistance = 0.3f;
 
     int counter;
 
@@ -30,6 +31,7 @@ public class Army : MonoBehaviour
     [SerializeField] int warriorsInArmy;
     public Army armyToAttack;
     public List<Army> armiesToAttack = new List<Army>();
+    public GameObject currentLine;
 
 
     private void Awake()
@@ -43,6 +45,11 @@ public class Army : MonoBehaviour
         gameObject.name = "Army(" + id + ")";
         id++;
         CheckBelongs();
+    }
+
+    public void CurrentLine(GameObject line)
+    {
+        currentLine = line;
     }
 
     void CreateNewPositionOfSpawn()
@@ -75,6 +82,7 @@ public class Army : MonoBehaviour
             Warrior war = warrior.GetComponent<Warrior>();
             war.warriorBelongs = armyBelongs;
             war.army = this;
+            war.circleDistance = circleDistance;
             if (!jump) war.jump = false;
             if (positionsOfSpawn.Count <= counter)
             {
@@ -154,7 +162,8 @@ public class Army : MonoBehaviour
             if (mainCastle.currentArmy == this)
                 mainCastle.warriorsReady--;
         }
-        if (warriorsInArmy < 1)
+        ClearListFromEmpty(warriors);
+        if (warriors.Count < 1)
         {
             if (inTheBattle)
             {
@@ -169,9 +178,14 @@ public class Army : MonoBehaviour
                 if (castleToAttack.currentArmy == null)
                     castleToAttack.currentArmy = this;
             }
+            if (castleToAttack != null)
+                castleToAttack.underAttack = false;
+            if (currentLine != null)
+                Destroy(currentLine);
             Destroy(gameObject);
             return;
         }
+        ClearListFromEmpty(warriors);
         billboard.SetValue(warriorsInArmy);
     }
 
@@ -288,12 +302,13 @@ public class Army : MonoBehaviour
                 {
                     foreach (Warrior war in alyArmy.warriors)
                     {
-                        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+                        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), circleDistance, 20);
                         AddWarriorsToArmy(1, war.transform.position, false);
                         Destroy(war.gameObject);
                     }
                     if (goingToAllies)
-                     alyArmy.mainCastle.currentArmy = this;
+                        alyArmy.mainCastle.currentArmy = this;
+                    else alyArmy.mainCastle.currentArmy = null;
                     Destroy(alyArmy.gameObject);
                 }
             }
@@ -308,7 +323,7 @@ public class Army : MonoBehaviour
                 {
                     foreach (Warrior war in alyArmy.warriors)
                     {
-                        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+                        positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), circleDistance, 20);
                         AddWarriorsToArmy(1, war.transform.position, true);
                         Destroy(war.gameObject);
                     }
@@ -351,6 +366,14 @@ public class Army : MonoBehaviour
     }
 
     void ClearListFromEmpty(List<Army> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] == null)
+                list.RemoveAt(i);
+        }
+    }
+    void ClearListFromEmpty(List<Warrior> list)
     {
         for (int i = 0; i < list.Count; i++)
         {

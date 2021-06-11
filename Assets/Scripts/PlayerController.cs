@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
                     if (tutorial) TutorialPoint(1);
                     activeCastle = hit.collider.GetComponent<CastleBehaviour>();
                         currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity, transform.parent);
-                    activeCastle.currentLine = currentLine;
+                    activeCastle.CurrentLine(currentLine);
                         lineRenderer = currentLine.GetComponent<LineRenderer>();
                     mouseClickPoint = hit.collider.transform.position;
                         //mouseClickPoint.x = hit.point.x;
@@ -112,8 +112,11 @@ public class PlayerController : MonoBehaviour
                         mouseClickPoint.z = hit.point.z;
                         mouseClickPoint.y = 0.06f;
                         movingPoints.Add(mouseClickPoint);
-                        lineRenderer.positionCount++;
-                        lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                        if (lineRenderer != null)
+                        {
+                            lineRenderer.positionCount++;
+                            lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                        }
                     }
                 }
             }
@@ -132,12 +135,15 @@ public class PlayerController : MonoBehaviour
                         if (!activeCastle.underAttack && activeCastle.currentArmy != null)
                         {
                             castleToAttack = hit.collider.GetComponent<CastleBehaviour>();
-                            castleToAttack.currentLine = currentLine;
+                            castleToAttack.CurrentLine(currentLine);
                             mouseClickPoint = hit.collider.transform.position;
                             mouseClickPoint.y = 0.03f;
                             movingPoints.Add(mouseClickPoint);
-                            lineRenderer.positionCount++;
-                            lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                            if (lineRenderer != null)
+                            {
+                                lineRenderer.positionCount++;
+                                lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                            }
                             if (tutorial) TutorialPoint(2);
                             if (!hit.collider.CompareTag("PlayerCastle"))
                                 activeCastle.MoveArmyToAttack(movingPoints, false);

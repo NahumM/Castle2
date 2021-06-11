@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] List<CastleBehaviour> allCastles = new List<CastleBehaviour>();
-    int castlesInLevel;
+    public int castlesInLevel;
     [SerializeField] int currentLevelID;
     GameObject currentLevel;
     [SerializeField] List<GameObject> levels = new List<GameObject>();
@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
             if (allyArmies.Length > 0)
             {
                 Debug.Log("Armies not null");
-                StartCoroutine("RestartDelay", true);
+                StartCoroutine("RestartDelay");
                 yield break;
             }
         StopAllCastles();
@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
         currentLevel = Instantiate(levels[currentLevelID]);
         StartCoroutine("AccureAllCastles");
         ui.ShowRestartButtonUI(false);
+        ui.ShowWinButtonUI(false);
     }
 
     public void LoadLevel()
@@ -76,10 +77,11 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(currentLevel);
             if (levels.Count - 1 > currentLevelID) currentLevelID++;
+            else currentLevelID = 0;
         }
-        else currentLevelID = 0;
         currentLevel = Instantiate(levels[currentLevelID]);
         StartCoroutine("AccureAllCastles");
+        ui.ShowRestartButtonUI(false);
         ui.ShowWinButtonUI(false);
     }
 

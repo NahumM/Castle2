@@ -12,6 +12,7 @@ public class Warrior : MonoBehaviour
     //
     public bool inDuel;
     public Warrior warToAttack;
+    public float circleDistance = 0.3f;
     public Army army;
     // [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public Animator anim;
@@ -90,7 +91,7 @@ public class Warrior : MonoBehaviour
         Vector3 randomP = Vector3.zero;
         for (bool pad = false; !pad; i++)
         {
-            randomP = point + Random.onUnitSphere * 0.3f;
+            randomP = point + Random.onUnitSphere * circleDistance;
             randomP = new Vector3(randomP.x, 0.06f, randomP.z);
             Collider[] nearWars = Physics.OverlapSphere(randomP, 0.03f, LayerMask.GetMask("Warriors"));
             if (nearWars.Length < 1) pad = true;
@@ -165,7 +166,7 @@ public class Warrior : MonoBehaviour
             else anim.SetBool("isRunning", false);
 
 
-        if (!inDuel && !dying && !startJumping)
+        if (!inDuel && !dying && !startJumping && army != null)
            destanation = army.transform.position + preset;
         transform.position = Vector3.MoveTowards(transform.position, destanation, Time.deltaTime * MoveTowardsSpeed);
         if (inDuel && !dying)
