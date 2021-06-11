@@ -308,7 +308,10 @@ public class Army : MonoBehaviour
                     }
                     if (goingToAllies)
                         alyArmy.mainCastle.currentArmy = this;
-                    else alyArmy.mainCastle.currentArmy = null;
+                    else if (alyArmy.mainCastle != null)
+                    {
+                        alyArmy.mainCastle.currentArmy = null;
+                    }
                     Destroy(alyArmy.gameObject);
                 }
             }

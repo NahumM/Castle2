@@ -112,6 +112,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 8517348691091705519}
   hole: {fileID: 8517348690374479887}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -5257,6 +5258,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 8517348689780659647}
   hole: {fileID: 8517348689631176237}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 0
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11167,6 +11169,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 8517348689842320114}
   hole: {fileID: 8517348690698962085}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}

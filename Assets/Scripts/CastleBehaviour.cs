@@ -104,7 +104,6 @@ public class CastleBehaviour : MonoBehaviour
             if (!once) yield return new WaitForSeconds(spawnRate);
             if ((castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player) && !underAttack)
             {
-                if (currentArmy == null || !once) warriorsReady = 0;
                     if (warriorsReady <= maximumWarriors || once)
                 {
                     if (currentArmy == null)
@@ -119,6 +118,7 @@ public class CastleBehaviour : MonoBehaviour
                     else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
                     warriorsReady++;
                 }
+                //if (currentArmy == null || !once) warriorsReady = 0;
             }
             if (currentArmy == null && underAttack)
             {
