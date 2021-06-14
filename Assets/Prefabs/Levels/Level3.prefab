@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2266804259968825224}
   - component: {fileID: 2266804259968825225}
   - component: {fileID: 2266804259968825226}
-  - component: {fileID: 5592000498247408498}
+  - component: {fileID: 6210352204451438061}
   m_Layer: 7
   m_Name: CastleHole
   m_TagString: PlayerCastle
@@ -112,6 +112,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 5592000498864816870}
   hole: {fileID: 5592000498013379654}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -120,8 +121,8 @@ MonoBehaviour:
   spawnRate: 2
   maximumWarriors: 15
   attackRate: 5
---- !u!65 &5592000498247408498
-BoxCollider:
+--- !u!135 &6210352204451438061
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,8 +132,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3381835506070288357
 GameObject:
   m_ObjectHideFlags: 0
@@ -5360,7 +5361,7 @@ GameObject:
   - component: {fileID: 5592000497235606147}
   - component: {fileID: 5592000497235606146}
   - component: {fileID: 5592000497235606145}
-  - component: {fileID: 5592000497235606144}
+  - component: {fileID: 5644050047922210447}
   m_Layer: 7
   m_Name: CastleHole (3)
   m_TagString: EnemyCastle
@@ -5460,6 +5461,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 5592000497487583734}
   hole: {fileID: 5592000497672727140}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 0
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -5468,8 +5470,8 @@ MonoBehaviour:
   spawnRate: 4
   maximumWarriors: 10
   attackRate: 5
---- !u!65 &5592000497235606144
-BoxCollider:
+--- !u!135 &5644050047922210447
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5479,8 +5481,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5592000497415192250
 GameObject:
   m_ObjectHideFlags: 0
@@ -11496,7 +11498,7 @@ GameObject:
   - component: {fileID: 5592000498483367526}
   - component: {fileID: 5592000498483367525}
   - component: {fileID: 5592000498483367524}
-  - component: {fileID: 5592000498483367523}
+  - component: {fileID: 4073635841082499970}
   m_Layer: 7
   m_Name: CastleHole (2)
   m_TagString: PlayerCastle
@@ -11596,6 +11598,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 5592000497415192251}
   hole: {fileID: 5592000498741659884}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11604,8 +11607,8 @@ MonoBehaviour:
   spawnRate: 2
   maximumWarriors: 15
   attackRate: 5
---- !u!65 &5592000498483367523
-BoxCollider:
+--- !u!135 &4073635841082499970
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11615,8 +11618,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5592000498647944889
 GameObject:
   m_ObjectHideFlags: 0
@@ -16920,7 +16923,7 @@ Camera:
   far clip plane: 1000
   field of view: 26.991467
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 3.3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -22055,7 +22058,7 @@ GameObject:
   - component: {fileID: 8935486752877101704}
   - component: {fileID: 8935486752877101705}
   - component: {fileID: 8935486752877101706}
-  - component: {fileID: 5592000497179466647}
+  - component: {fileID: 6956259591987176374}
   m_Layer: 7
   m_Name: CastleHole (1)
   m_TagString: EnemyCastle
@@ -22155,6 +22158,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 3381835506070288358}
   hole: {fileID: 3381835506292582726}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 0
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -22163,8 +22167,8 @@ MonoBehaviour:
   spawnRate: 4
   maximumWarriors: 10
   attackRate: 12
---- !u!65 &5592000497179466647
-BoxCollider:
+--- !u!135 &6956259591987176374
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -22174,5 +22178,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}

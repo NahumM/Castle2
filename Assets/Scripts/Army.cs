@@ -13,7 +13,7 @@ public class Army : MonoBehaviour
     public float armySpeed;
     Billboard billboard;
     public int startArmyAmount;
-    public bool goingToAllies;
+    public CastleBehaviour goingToAllies;
     public float circleDistance = 0.3f;
 
     int counter;
@@ -47,10 +47,6 @@ public class Army : MonoBehaviour
         CheckBelongs();
     }
 
-    public void CurrentLine(GameObject line)
-    {
-        currentLine = line;
-    }
 
     void CreateNewPositionOfSpawn()
     {
@@ -133,7 +129,7 @@ public class Army : MonoBehaviour
         foreach (Warrior war in warriors)
         {
             var lookPos = movingPath[0] - transform.position;
-            lookPos.y = 0.06f;
+            lookPos.y = 0;
             Quaternion rotation = Quaternion.LookRotation(lookPos);
             
             war.gameObject.transform.rotation = rotation;
@@ -182,11 +178,22 @@ public class Army : MonoBehaviour
                 castleToAttack.underAttack = false;
             if (currentLine != null)
                 Destroy(currentLine);
-            Destroy(gameObject);
+            DestroyThisArmy();
             return;
         }
         ClearListFromEmpty(warriors);
         billboard.SetValue(warriorsInArmy);
+    }
+
+    void DestroyThisArmy()
+    {
+        ClearListFromEmpty(warriors);
+        foreach (Warrior war in warriors)
+        {
+            if (!war.inDuel)
+            Destroy(war.gameObject);
+        }
+        Destroy(gameObject);
     }
 
     void WarriorsToAttack(CastleBehaviour castle)
@@ -211,7 +218,7 @@ public class Army : MonoBehaviour
                     foreach (Warrior war in warriors)
                     {
                         var lookPos = movingPath[0] - transform.position;
-                        lookPos.y = 0.06f;
+                        lookPos.y = 0;
                         Quaternion rotation = Quaternion.LookRotation(lookPos);
 
                         war.gameObject.transform.rotation = rotation;
@@ -219,7 +226,11 @@ public class Army : MonoBehaviour
                 }
             }
         }
-        else startMoving = false;
+        else
+        {
+            startMoving = false;
+            if (currentLine != null) Destroy(currentLine);
+        }
     }
     void Update()
     {
@@ -235,7 +246,7 @@ public class Army : MonoBehaviour
         {
             for (int i = 0; i < warriors.Count; i++)
             {
-                if (i / 2 == 0)
+                if (i%2 == 1 || i == 0)
                 {
                     warriors[i].Death();
                 }
@@ -306,11 +317,15 @@ public class Army : MonoBehaviour
                         AddWarriorsToArmy(1, war.transform.position, false);
                         Destroy(war.gameObject);
                     }
-                    if (goingToAllies)
+                    if (goingToAllies == alyArmy.mainCastle)
+                    {
+                        if (alyArmy.mainCastle != null)
                         alyArmy.mainCastle.currentArmy = this;
+                    }
                     else if (alyArmy.mainCastle != null)
                     {
                         alyArmy.mainCastle.currentArmy = null;
+                        alyArmy.mainCastle.warriorsReady = 0;
                     }
                     Destroy(alyArmy.gameObject);
                 }
@@ -351,7 +366,7 @@ public class Army : MonoBehaviour
                     //  war.agent.enabled = true;
                 }
                 if (castleToAttack != null)
-                    WarriorsToAttack(castleToAttack);
+                    JumpToCastle(castleToAttack);
                 if (mainCastle != null)
                 {
                     if (mainCastle.currentArmy == this)

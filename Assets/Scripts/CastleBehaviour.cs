@@ -105,19 +105,19 @@ public class CastleBehaviour : MonoBehaviour
             if ((castleBelongs == Belongs.Enemy || castleBelongs == Belongs.Player) && !underAttack)
             {
                     if (warriorsReady <= maximumWarriors || once)
-                {
-                    if (currentArmy == null)
                     {
-                        warriorsReady = 0;
-                        CreateArmy();
+                        if (currentArmy == null)
+                        {
+                            warriorsReady = 0;
+                            CreateArmy();
+                        }
+                        else if (currentArmy.warriors.Count != 0 && !underAttack)
+                        {
+                            currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
+                        }
+                        else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
+                        warriorsReady++;
                     }
-                    else if (currentArmy.warriors.Count != 0 && !underAttack)
-                    {
-                        currentArmy.AddWarriorsToArmy(1, jumpPosition.position, true);
-                    }
-                    else if (currentArmy.warriors.Count == 0) Destroy(currentArmy.gameObject);
-                    warriorsReady++;
-                }
                 //if (currentArmy == null || !once) warriorsReady = 0;
             }
             if (currentArmy == null && underAttack)
@@ -174,7 +174,7 @@ public class CastleBehaviour : MonoBehaviour
                         positionOfCastle.Add(child.position);
                     }
                 }
-                MoveArmyToAttack(positionOfCastle, false);
+                MoveArmyToAttack(positionOfCastle, null);
             }
             StartCoroutine("EnemyAttackRate");
         }
@@ -221,14 +221,15 @@ public class CastleBehaviour : MonoBehaviour
         warsJumpedinHole = 0;
     }
 
-    public void MoveArmyToAttack(List<Vector3> movePositions, bool toAllyCastle)
+    public void MoveArmyToAttack(List<Vector3> movePositions, CastleBehaviour castleToAttack)
     {
         List<Vector3> movingPoints = new List<Vector3>(movePositions);
         if (currentArmy != null)
         {
-            if (toAllyCastle) currentArmy.goingToAllies = true;
+            if (castleToAttack != null) currentArmy.goingToAllies = castleToAttack;
             currentArmy.MoveArmyToPath(movingPoints);
             currentArmy.mainCastle = null;
+            currentArmy.currentLine = currentLine;
             currentArmy = null;
             warriorsReady = 0;
         }
@@ -242,8 +243,6 @@ public class CastleBehaviour : MonoBehaviour
         currentArmy.armyBelongs = castleBelongs;
         currentArmy.mainCastle = this;
         currentArmy.circleDistance = circleDistanceOfSpawn;
-        if (currentLine != null)
-            currentArmy.CurrentLine(currentLine);
         ChangeArmyValue(1);
         //currentArmy.AddWarriorsToArmy(warriorsReady);
         currentArmy.MoveArmyToPath(movingPoints);

@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2738374879628771339}
-  - component: {fileID: 2738374879628771338}
+  - component: {fileID: 5138704172636753952}
   m_Layer: 0
   m_Name: Tents
   m_TagString: Tent
@@ -381,8 +381,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2738374879628771338
-BoxCollider:
+--- !u!135 &5138704172636753952
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -392,8 +392,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0673912, y: 0.4499688, z: 1.084322}
-  m_Center: {x: 1.7556158, y: -1.173847, z: 0.4989121}
+  m_Radius: 0.5
+  m_Center: {x: 1.67, y: -1.173847, z: 0.53}
 --- !u!1 &2738374880028425063
 GameObject:
   m_ObjectHideFlags: 0

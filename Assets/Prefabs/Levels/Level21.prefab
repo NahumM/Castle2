@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!135 &6695117860284544989
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784351217537550788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &3875297308216626825
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784351217563313943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &6832139538081092154
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784351218046251188}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &2659341087205163378
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784351218352871996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3987912840626542532
 GameObject:
   m_ObjectHideFlags: 0
@@ -11064,7 +11116,7 @@ GameObject:
   - component: {fileID: 6062863467080751689}
   - component: {fileID: 6062863467080751690}
   - component: {fileID: 6062863467080751691}
-  - component: {fileID: 6062863467080751692}
+  - component: {fileID: 4116036342440467301}
   m_Layer: 7
   m_Name: CastleHole (2)
   m_TagString: PlayerCastle
@@ -11160,9 +11212,11 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 6062863465567971988}
   hole: {fileID: 6062863466823146691}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11171,8 +11225,8 @@ MonoBehaviour:
   spawnRate: 1
   maximumWarriors: 10
   attackRate: 15
---- !u!65 &6062863467080751692
-BoxCollider:
+--- !u!135 &4116036342440467301
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11182,8 +11236,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6062863467171536373
 GameObject:
   m_ObjectHideFlags: 0
@@ -11389,7 +11443,7 @@ GameObject:
   - component: {fileID: 7329715304853984935}
   - component: {fileID: 7329715304853984934}
   - component: {fileID: 7329715304853984933}
-  - component: {fileID: 6062863465802010552}
+  - component: {fileID: 4322598638970640527}
   m_Layer: 7
   m_Name: CastleHole (1)
   m_TagString: EnemyCastle
@@ -11485,9 +11539,11 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 3987912841334973385}
   hole: {fileID: 3987912841012018537}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 0
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11496,8 +11552,8 @@ MonoBehaviour:
   spawnRate: 1
   maximumWarriors: 10
   attackRate: 10
---- !u!65 &6062863465802010552
-BoxCollider:
+--- !u!135 &4322598638970640527
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11507,8 +11563,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9154007834027059384
 GameObject:
   m_ObjectHideFlags: 0
@@ -11757,8 +11813,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 654536985496844531, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+--- !u!1 &2784351218352871996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4075369418430431553, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+  m_PrefabInstance: {fileID: 2173723813002353533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2784351218352871992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075369418430431557, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
@@ -11827,8 +11889,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 654536985496844531, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+--- !u!1 &2784351218046251188 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4075369418430431553, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+  m_PrefabInstance: {fileID: 2173723813300924917}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2784351218046251184 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075369418430431557, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
@@ -11897,8 +11965,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 654536985496844531, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+--- !u!1 &2784351217537550788 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4075369418430431553, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+  m_PrefabInstance: {fileID: 2173723814872598661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2784351217537550784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075369418430431557, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
@@ -11967,8 +12041,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 654536985496844531, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+--- !u!1 &2784351217563313943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4075369418430431553, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+  m_PrefabInstance: {fileID: 2173723814964291158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2784351217563313939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075369418430431557, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}

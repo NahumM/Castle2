@@ -96,6 +96,39 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3917281, y: 0.0749549, z: 0.49654576}
   m_Center: {x: 0.007800065, y: 0.033083506, z: 0.059404567}
+--- !u!1 &667958140384191254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6938035480284418914}
+  m_Layer: 0
+  m_Name: Path (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6938035480284418914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667958140384191254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2733872517634891406}
+  - {fileID: 5662439457742377245}
+  - {fileID: 8138012628948437860}
+  m_Father: {fileID: 4922789646325087755}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888238662414914894
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3424576211905073785}
-  - component: {fileID: 3424576211905073784}
+  - component: {fileID: 7862123128494348261}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Spike
@@ -359,8 +392,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3424576211905073784
-BoxCollider:
+--- !u!135 &7862123128494348261
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -370,8 +403,38 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
+--- !u!1 &3463003287975554208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2733872517634891406}
+  m_Layer: 0
+  m_Name: point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2733872517634891406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463003287975554208}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.35, y: -1.27, z: -1.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6938035480284418914}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4013274081509952897
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +680,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4245445152406080974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5662439457742377245}
+  m_Layer: 0
+  m_Name: point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5662439457742377245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4245445152406080974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.19, y: -1.27, z: 0.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6938035480284418914}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4539354063168419682
 GameObject:
   m_ObjectHideFlags: 0
@@ -11070,7 +11163,7 @@ GameObject:
   - component: {fileID: 6108697665314829314}
   - component: {fileID: 6108697665314829313}
   - component: {fileID: 6108697665314829312}
-  - component: {fileID: 6108697665314829319}
+  - component: {fileID: 3046971300328502358}
   m_Layer: 7
   m_Name: CastleHole (2)
   m_TagString: PlayerCastle
@@ -11161,14 +11254,17 @@ MonoBehaviour:
   torus: {fileID: 6108697666081158365}
   armyPrefab: {fileID: 2940987313472619641, guid: c93d4fdd7eb15704f8c8ba56f933701d, type: 3}
   levelManager: {fileID: 0}
-  enemyPathways: []
+  enemyPathways:
+  - {fileID: 667958140384191254}
   door: {fileID: 0}
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 6108697664865223903}
   hole: {fileID: 6108697666130834056}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11177,8 +11273,8 @@ MonoBehaviour:
   spawnRate: 1
   maximumWarriors: 5
   attackRate: 5
---- !u!65 &6108697665314829319
-BoxCollider:
+--- !u!135 &3046971300328502358
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11188,8 +11284,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6108697665394996158
 GameObject:
   m_ObjectHideFlags: 0
@@ -11316,7 +11412,7 @@ Camera:
   far clip plane: 1000
   field of view: 26.991467
   orthographic: 1
-  orthographic size: 3.9
+  orthographic size: 4.35
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -11567,6 +11663,7 @@ Transform:
   - {fileID: 8717438555426661551}
   - {fileID: 8717438555108450587}
   - {fileID: 8717438555420596304}
+  - {fileID: 6938035480284418914}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11582,7 +11679,7 @@ GameObject:
   - component: {fileID: 7304147166438848748}
   - component: {fileID: 7304147166438848749}
   - component: {fileID: 7304147166438848750}
-  - component: {fileID: 6108697664025600499}
+  - component: {fileID: 8973805012389116411}
   m_Layer: 7
   m_Name: CastleHole (1)
   m_TagString: EnemyCastle
@@ -11679,9 +11776,11 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 4013274081509952898}
   hole: {fileID: 4013274082269123362}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 0
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11690,8 +11789,8 @@ MonoBehaviour:
   spawnRate: 1
   maximumWarriors: 5
   attackRate: 6
---- !u!65 &6108697664025600499
-BoxCollider:
+--- !u!135 &8973805012389116411
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11701,8 +11800,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8165053367573969160
 GameObject:
   m_ObjectHideFlags: 0
@@ -11799,6 +11898,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3917281, y: 0.0749549, z: 0.49654576}
   m_Center: {x: 0.007800065, y: 0.033083506, z: 0.059404567}
+--- !u!1 &8371004232948960073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8138012628948437860}
+  m_Layer: 0
+  m_Name: point (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8138012628948437860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8371004232948960073}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.58, y: -1.27, z: 3.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6938035480284418914}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717438553895447673
 GameObject:
   m_ObjectHideFlags: 0
@@ -13194,7 +13323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438554588062524}
-  - component: {fileID: 8717438554588062515}
+  - component: {fileID: 1031846354896717127}
   m_Layer: 0
   m_Name: Spikes (4)
   m_TagString: Spike
@@ -13219,8 +13348,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438554588062515
-BoxCollider:
+--- !u!135 &1031846354896717127
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -13230,8 +13359,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438554620691599
 GameObject:
   m_ObjectHideFlags: 0
@@ -13241,7 +13370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438554620691598}
-  - component: {fileID: 8717438554620691597}
+  - component: {fileID: 2956380982162862259}
   m_Layer: 0
   m_Name: Spikes (3)
   m_TagString: Spike
@@ -13266,8 +13395,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438554620691597
-BoxCollider:
+--- !u!135 &2956380982162862259
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -13277,8 +13406,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438554694723080
 GameObject:
   m_ObjectHideFlags: 0
@@ -13578,7 +13707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438555108450587}
-  - component: {fileID: 8717438555108450586}
+  - component: {fileID: 6748459788040516130}
   m_Layer: 0
   m_Name: Spikes (6)
   m_TagString: Spike
@@ -13603,8 +13732,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438555108450586
-BoxCollider:
+--- !u!135 &6748459788040516130
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -13614,8 +13743,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438555113656811
 GameObject:
   m_ObjectHideFlags: 0
@@ -14501,7 +14630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438555419151611}
-  - component: {fileID: 8717438555419151610}
+  - component: {fileID: 6990488755161608518}
   m_Layer: 0
   m_Name: Spikes (2)
   m_TagString: Spike
@@ -14526,8 +14655,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438555419151610
-BoxCollider:
+--- !u!135 &6990488755161608518
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14537,8 +14666,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438555420596305
 GameObject:
   m_ObjectHideFlags: 0
@@ -14548,7 +14677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438555420596304}
-  - component: {fileID: 8717438555420596311}
+  - component: {fileID: 4779865565166451876}
   m_Layer: 0
   m_Name: Spikes (7)
   m_TagString: Spike
@@ -14573,8 +14702,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438555420596311
-BoxCollider:
+--- !u!135 &4779865565166451876
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14584,8 +14713,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438555426661544
 GameObject:
   m_ObjectHideFlags: 0
@@ -14595,7 +14724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438555426661551}
-  - component: {fileID: 8717438555426661550}
+  - component: {fileID: 7392490296176561800}
   m_Layer: 0
   m_Name: Spikes (5)
   m_TagString: Spike
@@ -14620,8 +14749,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438555426661550
-BoxCollider:
+--- !u!135 &7392490296176561800
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14631,8 +14760,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438555429056238
 GameObject:
   m_ObjectHideFlags: 0
@@ -15672,7 +15801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717438555819287329}
-  - component: {fileID: 8717438555819287328}
+  - component: {fileID: 5194345292535803933}
   m_Layer: 0
   m_Name: Spikes (1)
   m_TagString: Spike
@@ -15697,8 +15826,8 @@ Transform:
   m_Father: {fileID: 4922789646325087755}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8717438555819287328
-BoxCollider:
+--- !u!135 &5194345292535803933
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15708,8 +15837,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47881383, y: 0.2824688, z: 0.47847486}
-  m_Center: {x: -0.85542357, y: -1.2888987, z: 0.7996948}
+  m_Radius: 0.3
+  m_Center: {x: -0.8554236, y: -1.288899, z: 0.7996948}
 --- !u!1 &8717438555834010833
 GameObject:
   m_ObjectHideFlags: 0

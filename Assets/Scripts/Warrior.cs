@@ -74,7 +74,9 @@ public class Warrior : MonoBehaviour
                     jumpToCastle = true;
                 }
                 Vector3 posToLook = new Vector3(endPos.x, transform.position.y, endPos.z);
-                transform.LookAt(posToLook);
+            posToLook.y = 0;
+                Quaternion rotation = Quaternion.LookRotation(posToLook);
+                transform.rotation = rotation;
                 startJumping = true;
             }
         if (!jump)
@@ -135,7 +137,7 @@ public class Warrior : MonoBehaviour
         attacking = true;
         inDuel = true;
         var lookPos = position - transform.position;
-        lookPos.y = 0.06f;
+        lookPos.y = 0;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = rotation;
         destanation = position;
@@ -175,7 +177,8 @@ public class Warrior : MonoBehaviour
             {
                     dying = true;
                 destanation = transform.position;
-                warToAttack.Death();
+                if (warToAttack != null)
+                    warToAttack.Death();
                 Death();
                 inDuel = false;
             }

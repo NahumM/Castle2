@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 814395386787819518}
   - component: {fileID: 814395386787819519}
   - component: {fileID: 814395386787819516}
-  - component: {fileID: 4239768810144806625}
+  - component: {fileID: 779411719652143038}
   m_Layer: 7
   m_Name: CastleHole (1)
   m_TagString: EnemyCastle
@@ -108,6 +108,7 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 6458963338966194832}
   hole: {fileID: 6458963339716969520}
@@ -120,8 +121,8 @@ MonoBehaviour:
   spawnRate: 99999
   maximumWarriors: 100
   attackRate: 99999
---- !u!65 &4239768810144806625
-BoxCollider:
+--- !u!135 &779411719652143038
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,8 +132,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1011166359358109598
 GameObject:
   m_ObjectHideFlags: 0
@@ -5052,6 +5053,32 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!135 &2136055467479533006
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572757124826281324}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &3588096569576663753
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572757125204141155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4238168320853949864
 GameObject:
   m_ObjectHideFlags: 0
@@ -10453,7 +10480,7 @@ GameObject:
   - component: {fileID: 4239768811440317200}
   - component: {fileID: 4239768811440317203}
   - component: {fileID: 4239768811440317202}
-  - component: {fileID: 4239768811440317205}
+  - component: {fileID: 777955222557179350}
   m_Layer: 7
   m_Name: CastleHole (2)
   m_TagString: PlayerCastle
@@ -10549,6 +10576,7 @@ MonoBehaviour:
   warriorsReady: 0
   underAttack: 0
   currentArmy: {fileID: 0}
+  currentLine: {fileID: 0}
   warsJumpedinHole: 0
   jumpPosition: {fileID: 4239768810916926413}
   hole: {fileID: 4239768812234958234}
@@ -10561,8 +10589,8 @@ MonoBehaviour:
   spawnRate: 0.7
   maximumWarriors: 10
   attackRate: 5
---- !u!65 &4239768811440317205
-BoxCollider:
+--- !u!135 &777955222557179350
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10572,8 +10600,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4239768811459798188
 GameObject:
   m_ObjectHideFlags: 0
@@ -11647,8 +11675,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 654536985496844531, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+--- !u!1 &2572757124826281324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4075369418430431553, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+  m_PrefabInstance: {fileID: 1962120407987876909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2572757124826281320 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075369418430431557, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
@@ -11717,8 +11751,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 654536985496844531, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+--- !u!1 &2572757125204141155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4075369418430431553, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}
+  m_PrefabInstance: {fileID: 1962120408969553186}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2572757125204141159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075369418430431557, guid: c9fcb5a9fa47caa4ebb08a084b702148, type: 3}

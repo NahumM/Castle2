@@ -53,7 +53,6 @@ public class LevelManager : MonoBehaviour
             GameObject[] allyArmies = GameObject.FindGameObjectsWithTag("PlayerArmy");
             if (allyArmies.Length > 0)
             {
-                Debug.Log("Armies not null");
                 StartCoroutine("RestartDelay");
                 yield break;
             }

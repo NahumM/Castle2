@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2656062907871493057}
   - component: {fileID: 2656062907871493056}
   - component: {fileID: 2656062907871493059}
-  - component: {fileID: 8517348690675226427}
+  - component: {fileID: 1145827093946810023}
   m_Layer: 7
   m_Name: CastleHole
   m_TagString: PlayerCastle
@@ -121,8 +121,8 @@ MonoBehaviour:
   spawnRate: 0.5
   maximumWarriors: 9
   attackRate: 5
---- !u!65 &8517348690675226427
-BoxCollider:
+--- !u!135 &1145827093946810023
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -132,8 +132,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4822650099691034273
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,7 +5158,7 @@ GameObject:
   - component: {fileID: 8517348689529075402}
   - component: {fileID: 8517348689529075403}
   - component: {fileID: 8517348689529075400}
-  - component: {fileID: 8517348689529075401}
+  - component: {fileID: 1333323865869466764}
   m_Layer: 7
   m_Name: CastleHole (3)
   m_TagString: EnemyCastle
@@ -5267,8 +5267,8 @@ MonoBehaviour:
   spawnRate: 0.1
   maximumWarriors: 16
   attackRate: 9999
---- !u!65 &8517348689529075401
-BoxCollider:
+--- !u!135 &1333323865869466764
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5278,8 +5278,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8517348689631176237
 GameObject:
   m_ObjectHideFlags: 0
@@ -11069,7 +11069,7 @@ GameObject:
   - component: {fileID: 8517348690441355823}
   - component: {fileID: 8517348690441355820}
   - component: {fileID: 8517348690441355821}
-  - component: {fileID: 8517348690441355818}
+  - component: {fileID: 8385053084207994789}
   m_Layer: 7
   m_Name: CastleHole (2)
   m_TagString: PlayerCastle
@@ -11178,8 +11178,8 @@ MonoBehaviour:
   spawnRate: 0.5
   maximumWarriors: 9
   attackRate: 5
---- !u!65 &8517348690441355818
-BoxCollider:
+--- !u!135 &8385053084207994789
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11189,8 +11189,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8517348690452953762
 GameObject:
   m_ObjectHideFlags: 0
@@ -16608,7 +16608,7 @@ Camera:
   far clip plane: 1000
   field of view: 26.991467
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 3.3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -16878,6 +16878,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -36.194
       objectReference: {fileID: 0}
+    - target: {fileID: 4788577790092597728, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 8517348690961394042}
+    - target: {fileID: 4788577790092597729, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16915,6 +16923,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.002922404
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.002922404
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.002922404
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -16924,15 +16944,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8844059
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.4667186
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalRotation.y
@@ -16944,7 +16964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -16952,7 +16972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 55.643
       objectReference: {fileID: 0}
     - target: {fileID: 4788577790092597735, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

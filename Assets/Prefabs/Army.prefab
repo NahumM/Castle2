@@ -257,8 +257,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2940987313472619647}
   - component: {fileID: 2940987313472619640}
-  - component: {fileID: 6674866378479788870}
   - component: {fileID: 3710294263473708621}
+  - component: {fileID: 5791505379858666030}
   m_Layer: 0
   m_Name: Army
   m_TagString: Untagged
@@ -298,7 +298,8 @@ MonoBehaviour:
   warriorPrefab: {fileID: 4662568851142372687, guid: ef8d39068ec58b4488403bed0e1aa937, type: 3}
   armySpeed: 1.5
   startArmyAmount: 0
-  goingToAllies: 0
+  goingToAllies: {fileID: 0}
+  circleDistance: 0.3
   castleToAttack: {fileID: 0}
   attackingCastle: 0
   mainCastle: {fileID: 0}
@@ -309,19 +310,7 @@ MonoBehaviour:
   warriorsInArmy: 0
   armyToAttack: {fileID: 0}
   armiesToAttack: []
---- !u!65 &6674866378479788870
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2940987313472619641}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6784401, y: 1.135381, z: 0.6784401}
-  m_Center: {x: 0, y: 0.33675838, z: 0}
+  currentLine: {fileID: 0}
 --- !u!54 &3710294263473708621
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -338,3 +327,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &5791505379858666030
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940987313472619641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0, z: 0}

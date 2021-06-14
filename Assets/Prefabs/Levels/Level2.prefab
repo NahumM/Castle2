@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 876787543064110976}
   - component: {fileID: 876787543064110977}
   - component: {fileID: 876787543064110978}
-  - component: {fileID: 6828988905187068794}
+  - component: {fileID: 2636556582077098026}
   m_Layer: 7
   m_Name: CastleHole
   m_TagString: PlayerCastle
@@ -112,16 +112,17 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 6828988905706967790}
   hole: {fileID: 6828988905493056590}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 1
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
   isEnemyCastle: 0
   startWarriors: 9
-  spawnRate: 90
+  spawnRate: 1
   maximumWarriors: 15
   attackRate: 5
---- !u!65 &6828988905187068794
-BoxCollider:
+--- !u!135 &2636556582077098026
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,8 +132,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4445341524901046253
 GameObject:
   m_ObjectHideFlags: 0
@@ -11385,7 +11386,7 @@ GameObject:
   - component: {fileID: 8025007944664388224}
   - component: {fileID: 8025007944664388225}
   - component: {fileID: 8025007944664388226}
-  - component: {fileID: 6828988904153729951}
+  - component: {fileID: 2681974989631602962}
   m_Layer: 7
   m_Name: CastleHole (1)
   m_TagString: PlayerCastle
@@ -11485,6 +11486,7 @@ MonoBehaviour:
   warsJumpedinHole: 0
   jumpPosition: {fileID: 4445341524901046254}
   hole: {fileID: 4445341525760883022}
+  circleDistanceOfSpawn: 0.3
   castleBelongs: 0
   redMat: {fileID: 2100000, guid: efb3da10e81b54fa6bb462dad96f9c87, type: 2}
   blueMat: {fileID: 2100000, guid: 48bdaedb45d70488b8976e85ec9bf6fb, type: 2}
@@ -11493,8 +11495,8 @@ MonoBehaviour:
   spawnRate: 1
   maximumWarriors: 10
   attackRate: 5
---- !u!65 &6828988904153729951
-BoxCollider:
+--- !u!135 &2681974989631602962
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11504,5 +11506,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8426062, y: 0.9601291, z: 0.8344617}
-  m_Center: {x: 0.0053622127, y: 0.10137889, z: 0.00018453598}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}

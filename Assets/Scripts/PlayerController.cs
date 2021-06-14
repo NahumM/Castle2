@@ -132,23 +132,27 @@ public class PlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("EnemyCastle") || hit.collider.CompareTag("EmptyCastle") || hit.collider.CompareTag("PlayerCastle"))
                     {
+                        castleToAttack = hit.collider.GetComponent<CastleBehaviour>();
                         if (!activeCastle.underAttack && activeCastle.currentArmy != null)
                         {
-                            castleToAttack = hit.collider.GetComponent<CastleBehaviour>();
-                            castleToAttack.CurrentLine(currentLine);
-                            mouseClickPoint = hit.collider.transform.position;
-                            mouseClickPoint.y = 0.03f;
-                            movingPoints.Add(mouseClickPoint);
-                            if (lineRenderer != null)
+                            if (castleToAttack != activeCastle)
                             {
-                                lineRenderer.positionCount++;
-                                lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                                castleToAttack.currentLine = currentLine;
+                                activeCastle.currentLine = currentLine;
+                                mouseClickPoint = hit.collider.transform.position;
+                                mouseClickPoint.y = 0.03f;
+                                movingPoints.Add(mouseClickPoint);
+                                if (lineRenderer != null)
+                                {
+                                    lineRenderer.positionCount++;
+                                    lineRenderer.SetPosition(lineRenderer.positionCount - 1, mouseClickPoint);
+                                }
+                                if (tutorial) TutorialPoint(2);
+                                if (!hit.collider.CompareTag("PlayerCastle"))
+                                    activeCastle.MoveArmyToAttack(movingPoints, null);
+                                else activeCastle.MoveArmyToAttack(movingPoints, castleToAttack);
+                                currentLine = null;
                             }
-                            if (tutorial) TutorialPoint(2);
-                            if (!hit.collider.CompareTag("PlayerCastle"))
-                                activeCastle.MoveArmyToAttack(movingPoints, false);
-                            else activeCastle.MoveArmyToAttack(movingPoints, true);
-                            currentLine = null;
                         }
                     }
                     else
@@ -167,6 +171,7 @@ public class PlayerController : MonoBehaviour
                 activeCastle = null;
                 movingPoints.Clear();
             }
+            movingPoints.Clear();
         }
     }
 }
