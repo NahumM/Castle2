@@ -72,24 +72,27 @@ public class Army : MonoBehaviour
 
     public void AddWarriorsToArmy(int amount, Vector3 jumpPoint, bool jump)
     {
-        for (int i = 0; i < amount; i++)
+        if (warriors.Count < 100)
         {
-            var warrior = Instantiate(warriorPrefab, jumpPoint, Quaternion.identity, transform.parent);
-            Warrior war = warrior.GetComponent<Warrior>();
-            war.warriorBelongs = armyBelongs;
-            war.army = this;
-            war.circleDistance = circleDistance;
-            if (!jump) war.jump = false;
-            if (positionsOfSpawn.Count <= counter)
+            for (int i = 0; i < amount; i++)
             {
-                positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
-                counter = 0;
+                var warrior = Instantiate(warriorPrefab, jumpPoint, Quaternion.identity, transform.parent);
+                Warrior war = warrior.GetComponent<Warrior>();
+                war.warriorBelongs = armyBelongs;
+                war.army = this;
+                war.circleDistance = circleDistance;
+                if (!jump) war.jump = false;
+                if (positionsOfSpawn.Count <= counter)
+                {
+                    positionsOfSpawn = GetCirclePositionsOfWarriors(new Vector3(transform.position.x, transform.position.z, transform.position.y), 0.3f, 20);
+                    counter = 0;
+                }
+                war.positionToJump = positionsOfSpawn[counter];
+                counter++;
+                warriors.Add(war);
+                warriorsInArmy++;
+                billboard.SetValue(warriorsInArmy);
             }
-            war.positionToJump = positionsOfSpawn[counter];
-            counter++;
-            warriors.Add(war);
-            warriorsInArmy++;
-            billboard.SetValue(warriorsInArmy);
         }
     }
 

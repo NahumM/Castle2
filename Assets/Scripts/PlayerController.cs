@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
             layerMask = ~layerMask;
             if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("Floor")))
             {
-                if (hit.collider.CompareTag("Forest"))
+                if (hit.collider.CompareTag("Forest") || movingPoints.Count > 125f)
                 {
                     drawing = false;
                     movingPoints.Clear();
