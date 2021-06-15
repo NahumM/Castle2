@@ -153,7 +153,9 @@ public class PlayerController : MonoBehaviour
                                 else activeCastle.MoveArmyToAttack(movingPoints, castleToAttack);
                                 currentLine = null;
                             }
+                            else Destroy(currentLine);
                         }
+                        else Destroy(currentLine);
                     }
                     else
                     {
