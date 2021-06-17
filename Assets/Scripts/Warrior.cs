@@ -7,6 +7,7 @@ public class Warrior : MonoBehaviour
 {
     [SerializeField] GameObject warriorZone;
     [SerializeField] ParticleSystem blood;
+    [SerializeField] ParticleSystem blueBlood;
     //Stats
     public bool isEnemy;
     //
@@ -173,7 +174,7 @@ public class Warrior : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, destanation, Time.deltaTime * MoveTowardsSpeed);
         if (inDuel && !dying)
         {
-            if (Vector3.Distance(transform.position, destanation) < 0.3f && warriorBelongs == CastleBehaviour.Belongs.Player)
+            if (Vector3.Distance(transform.position, destanation) < 0.03f && warriorBelongs == CastleBehaviour.Belongs.Player)
             {
                     dying = true;
                 destanation = transform.position;
@@ -213,14 +214,23 @@ public class Warrior : MonoBehaviour
 
     public void Death()
     {
-        blood.Play();
+        if (warriorBelongs == CastleBehaviour.Belongs.Enemy)
+        {
+            blood.Play();
+            blood.transform.parent = null;
+        }
+        else
+        {
+            blueBlood.Play();
+            blueBlood.transform.parent = null;
+        }
         if (anim != null)
         {
             anim.SetBool("isAttacking", true);
         }
         army.RemoveWarriorFromArmy(this);
         gameObject.tag = "Untagged";
-        Destroy(this.gameObject, 0.5f);
+        Destroy(this.gameObject, 0.1f);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -110,20 +110,62 @@ public class Army : MonoBehaviour
             foreach (Warrior war in warriors)
             {
                 if (!war.inDuel)
-                    attackers.Add(war);
+                {
+                    if (attackers.Count != 0)
+                    {
+                        for (int i = 0; i < attackers.Count + 1; i++)
+                        {
+                            if (i == attackers.Count)
+                            {
+                                attackers.Insert(i, war);
+                                break;
+                            }
+                            if (Vector3.Distance(attackers[i].gameObject.transform.position, armyToAttack.gameObject.transform.position) > Vector3.Distance(war.gameObject.transform.position, armyToAttack.gameObject.transform.position))
+                            {
+                                attackers.Insert(i, war);
+                                break;
+                            }
+                        }
+                    }
+                    else attackers.Add(war);
+                }
             }
             foreach (Warrior war in army.warriors)
             {
                 if (!war.inDuel)
-                    defenders.Add(war);
+                {
+                    if (defenders.Count != 0)
+                    {
+                        for (int i = 0; i < defenders.Count + 1; i++)
+                        {
+                            if (i == defenders.Count)
+                            {
+                                defenders.Insert(i, war);
+                                break;
+                            }
+                            if (Vector3.Distance(defenders[i].gameObject.transform.position, transform.position) > Vector3.Distance(war.gameObject.transform.position, transform.position))
+                            {
+                                defenders.Insert(i, war);
+                                break;
+                            }
+                        }
+                    } 
+                    else defenders.Add(war);
+                }
             }
             int lessWarriors = Mathf.Min(attackers.Count, defenders.Count);
-            for (int i = 0; i < lessWarriors; i++)
-            {
-                Vector3 middlePoint = (defenders[i].transform.position + attackers[i].transform.position) / 2;
-                defenders[i].StopWarrior(middlePoint);
-                attackers[i].AttackWarrior(defenders[i], middlePoint);
-            }
+        StartCoroutine(FightCalculate(lessWarriors, defenders, attackers));
+    }
+
+    IEnumerator FightCalculate(int warriors, List<Warrior> defenders, List<Warrior> attackers)
+    {
+        for (int i = 0; i < warriors; i++)
+        {
+            Vector3 middlePoint = (defenders[i].transform.position + attackers[i].transform.position) / 2;
+            defenders[i].StopWarrior(middlePoint);
+            attackers[i].AttackWarrior(defenders[i], middlePoint);
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 
     public void MoveArmyToPath(List<Vector3> path)
