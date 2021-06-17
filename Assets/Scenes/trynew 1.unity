@@ -1508,12 +1508,12 @@ GameObject:
   - component: {fileID: 359854312788349792}
   - component: {fileID: 3928834077153791244}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SkipButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6686561523606961806
 MonoBehaviour:
   m_ObjectHideFlags: 0

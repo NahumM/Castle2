@@ -278,8 +278,8 @@ MonoBehaviour:
   hand: {fileID: 9116716534846598007}
   text: {fileID: 8694793500979209}
   tutorialTextes:
-  - Tap and Hold on the castle
-  - Draw a path to the enemy castle
+  - Tap and Hold on the blue base
+  - Draw a path to the enemy base
 --- !u!1 &2943324251839326035
 GameObject:
   m_ObjectHideFlags: 0
@@ -11530,6 +11530,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4057742029467492825}
     m_Modifications:
+    - target: {fileID: 8694793804749683, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
+      propertyPath: m_text
+      value: Tap and Hold on the blue base
+      objectReference: {fileID: 0}
     - target: {fileID: 8694793804749684, guid: 83f6df71851a2f041b207e6da8d41604, type: 3}
       propertyPath: m_LocalPosition.z
       value: -128
