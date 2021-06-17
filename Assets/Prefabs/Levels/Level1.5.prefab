@@ -16651,8 +16651,8 @@ MonoBehaviour:
   hand: {fileID: 7558485990479129951}
   text: {fileID: 1620966333299897889}
   tutorialTextes:
-  - Tap and Hold on the castle
-  - Draw a path across both of your castles
+  - Tap and Hold on the left base
+  - Draw a path throw both of your armies
 --- !u!1 &8517348691091705516
 GameObject:
   m_ObjectHideFlags: 0

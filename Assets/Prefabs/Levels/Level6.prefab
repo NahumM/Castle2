@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tap and Hold on the castle
+  m_text: Tap and Hold on the blue base
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
   m_sharedMaterial: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
@@ -11143,7 +11143,7 @@ MonoBehaviour:
   hand: {fileID: 9116716533829258105}
   text: {fileID: 8694792387137543}
   tutorialTextes:
-  - Tap and Hold on the castle
+  - Tap and Hold on the base
   - Draw a path through the neutral army
 --- !u!1 &3996335335506369793
 GameObject:
