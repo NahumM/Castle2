@@ -13057,6 +13057,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.x
+      value: 1.9981105
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.6059437
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.x
+      value: 0.36345875
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.31868643
+      objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name
       value: Forest (4)
@@ -14294,6 +14310,22 @@ PrefabInstance:
     - target: {fileID: 8890104179139379744, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.x
+      value: 2.05963
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.86432636
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.x
+      value: 0.5172582
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.195647
       objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name
@@ -15533,6 +15565,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.x
+      value: 1.9796544
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.82126236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.x
+      value: 0.35423094
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.22333097
+      objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name
       value: Forest (1)
@@ -16771,6 +16819,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.x
+      value: 2.1334534
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.8458704
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.x
+      value: 0.48034644
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.21717894
+      objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name
       value: Forest (2)
@@ -18008,6 +18072,14 @@ PrefabInstance:
     - target: {fileID: 8890104179139379744, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.8335664
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.2540909
       objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name

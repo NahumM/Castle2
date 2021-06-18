@@ -34031,6 +34031,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.x
+      value: 1.9532815
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.91768324
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.x
+      value: 0.34104508
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.24829382
+      objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name
       value: Forest
@@ -35268,6 +35284,22 @@ PrefabInstance:
     - target: {fileID: 8890104179139379744, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.x
+      value: 1.9165688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Size.z
+      value: 0.90718037
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.x
+      value: 0.4003011
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890104179139379745, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
+      propertyPath: m_Center.z
+      value: -0.21707419
       objectReference: {fileID: 0}
     - target: {fileID: 8890104179139379750, guid: 92fde6e5a833ff84198ff29f8b689554, type: 3}
       propertyPath: m_Name
