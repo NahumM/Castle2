@@ -109,7 +109,7 @@ public class Army : MonoBehaviour
             List<Warrior> defenders = new List<Warrior>();
             foreach (Warrior war in warriors)
             {
-                if (!war.inDuel)
+                if (!war.inDuel && !war.waitingForDuel)
                 {
                     if (attackers.Count != 0)
                     {
@@ -132,7 +132,7 @@ public class Army : MonoBehaviour
             }
             foreach (Warrior war in army.warriors)
             {
-                if (!war.inDuel)
+                if (!war.inDuel && !war.waitingForDuel)
                 {
                     if (defenders.Count != 0)
                     {
@@ -154,6 +154,11 @@ public class Army : MonoBehaviour
                 }
             }
             int lessWarriors = Mathf.Min(attackers.Count, defenders.Count);
+        for (int i = 0; i < lessWarriors; i++)
+        {
+            defenders[i].waitingForDuel = true;
+            attackers[i].waitingForDuel = true;
+        }
         StartCoroutine(FightCalculate(lessWarriors, defenders, attackers));
     }
 
@@ -206,6 +211,13 @@ public class Army : MonoBehaviour
         ClearListFromEmpty(warriors);
         if (warriors.Count < 1)
         {
+            if (castleToAttack != null)
+            {
+                if (castleToAttack.currentArmy != null && castleToAttack.currentArmy.armiesToAttack.Count < 2)
+                {
+                    castleToAttack.underAttack = false;
+                }
+            }
             if (inTheBattle)
             {
                 foreach (Army arm in armiesToAttack)
@@ -219,8 +231,6 @@ public class Army : MonoBehaviour
                 if (castleToAttack.currentArmy == null)
                     castleToAttack.currentArmy = this;
             }
-            if (castleToAttack != null)
-                castleToAttack.underAttack = false;
             if (currentLine != null)
                 Destroy(currentLine);
             DestroyThisArmy();
@@ -348,8 +358,11 @@ public class Army : MonoBehaviour
         {
             if (other.CompareTag("EnemyArmy"))
             {
-                if (!other.GetComponent<Army>().inTheBattle)
+                if (other.GetComponent<Army>().mainCastle != null)
+                {
+                    castleToAttack.AttackCastle();
                     AttackOtherArmy(other.GetComponent<Army>());
+                } else AttackOtherArmy(other.GetComponent<Army>());
             }
             if (other.CompareTag("PlayerArmy") || other.CompareTag("EmptyArmy"))
             {
@@ -414,8 +427,10 @@ public class Army : MonoBehaviour
                     JumpToCastle(castleToAttack);
                 if (mainCastle != null)
                 {
-                    if (mainCastle.currentArmy == this)
+                    if (mainCastle.currentArmy == this && armiesToAttack.Count < 1)
+                    {
                         mainCastle.underAttack = false;
+                    }
                 }
                 StartCoroutine("WinningDelay");
             }

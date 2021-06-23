@@ -8,13 +8,16 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<CastleBehaviour> allCastles = new List<CastleBehaviour>();
     public int castlesInLevel;
     [SerializeField] int currentLevelID;
+    [SerializeField] int timesGameFinished;
     GameObject currentLevel;
     [SerializeField] List<GameObject> levels = new List<GameObject>();
     [SerializeField] UIManager ui;
+    [SerializeField] AnalyticsC analyticsC;
 
     private void Start()
     {
         currentLevelID = PlayerPrefs.GetInt("Level");
+        timesGameFinished = PlayerPrefs.GetInt("TimesGameFinished");
         if (currentLevelID < 0) currentLevelID = 0;
         LoadLevel();
     }
@@ -58,13 +61,15 @@ public class LevelManager : MonoBehaviour
             }
         StopAllCastles();
         ui.ShowRestartButtonUI(true);
+        analyticsC.AnalyticsLevelLoss(currentLevelID + 1);
         GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
 
     public void RestartLevel()
     {
         Destroy(currentLevel);
-        currentLevel = Instantiate(levels[currentLevelID]);
+        currentLevel = Instantiate(levels[currentLevelID - (timesGameFinished * levels.Count)]);
+        analyticsC.AnalyticsLevelRestart(currentLevelID + 1);
         StartCoroutine("AccureAllCastles");
         ui.ShowRestartButtonUI(false);
         ui.ShowWinButtonUI(false);
@@ -75,10 +80,15 @@ public class LevelManager : MonoBehaviour
         if (currentLevel != null)
         {
             Destroy(currentLevel);
-            if (levels.Count - 1 > currentLevelID) currentLevelID++;
-            else currentLevelID = 0;
+            if (levels.Count - 1 > currentLevelID - (timesGameFinished * levels.Count)) currentLevelID++;
+            else
+            {
+                timesGameFinished++;
+                currentLevelID = timesGameFinished * levels.Count;
+            }
         }
-        currentLevel = Instantiate(levels[currentLevelID]);
+        currentLevel = Instantiate(levels[currentLevelID - (timesGameFinished * levels.Count)]);
+        analyticsC.AnalyticsLevelStart(currentLevelID + 1);
         StartCoroutine("AccureAllCastles");
         ui.ShowRestartButtonUI(false);
         ui.ShowWinButtonUI(false);
@@ -94,6 +104,7 @@ public class LevelManager : MonoBehaviour
             yield break;
         }
         ui.ShowWinButtonUI(true);
+        analyticsC.AnalyticsLevelVictory(currentLevelID + 1);
         StopAllCastles();
         GameObject.FindObjectOfType<PlayerController>().isGameEnded = true;
     }
@@ -130,6 +141,7 @@ public class LevelManager : MonoBehaviour
     void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("Level", currentLevelID);
+        PlayerPrefs.SetInt("TimesGameFinished", timesGameFinished);
         PlayerPrefs.Save();
     }
 
@@ -138,6 +150,7 @@ public class LevelManager : MonoBehaviour
         if (!hasFocus)
         {
             PlayerPrefs.SetInt("Level", currentLevelID);
+            PlayerPrefs.SetInt("TimesGameFinished", timesGameFinished);
             PlayerPrefs.Save();
         }
     }

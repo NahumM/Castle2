@@ -27,6 +27,8 @@ public class Warrior : MonoBehaviour
     static int id;
     Vector3 destanation;
 
+    public bool waitingForDuel;
+
     public float MoveTowardsSpeed;
 
     Color blueColor = new Color(0.1830188f, 0.5300552f, 1f, 1f);
